@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '8.0'
+
+target 'SDWebImageLinkPlugin_Example' do
+  pod 'SDWebImageLinkPlugin', :path => '../'
+
+  target 'SDWebImageLinkPlugin_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
