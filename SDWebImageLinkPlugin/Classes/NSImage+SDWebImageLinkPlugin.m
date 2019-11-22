@@ -24,7 +24,12 @@
 #pragma mark - NSItemProviderWriting
 
 + (NSArray<NSString *> *)writableTypeIdentifiersForItemProvider {
-    return [NSImage imageTypes];
+    return @[(__bridge NSString *)kUTTypeTIFF,
+             (__bridge NSString *)kUTTypePNG,
+             (__bridge NSString *)kUTTypeJPEG,
+             (__bridge NSString *)kUTTypeJPEG2000,
+             (__bridge NSString *)kUTTypeBMP,
+             (__bridge NSString *)kUTTypeGIF];
 }
 
 - (nullable NSProgress *)loadDataWithTypeIdentifier:(nonnull NSString *)typeIdentifier forItemProviderCompletionHandler:(nonnull void (^)(NSData * _Nullable, NSError * _Nullable))completionHandler {
@@ -36,21 +41,21 @@
     } else {
         bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:self.CGImage];
     }
-    NSBitmapImageFileType fileType;
-    if ([typeIdentifier isEqualToString:(__bridge NSString *)kUTTypeJPEG]) {
+    NSBitmapImageFileType fileType = NSBitmapImageFileTypeTIFF; // Defaults to TIFF
+    if ([typeIdentifier isEqualToString:(__bridge NSString *)kUTTypeTIFF]) {
+        fileType = NSBitmapImageFileTypeTIFF;
+    } else if ([typeIdentifier isEqualToString:(__bridge NSString *)kUTTypePNG]) {
+        fileType = NSBitmapImageFileTypePNG;
+    } else if ([typeIdentifier isEqualToString:(__bridge NSString *)kUTTypeJPEG]) {
         fileType = NSBitmapImageFileTypeJPEG;
     } else if ([typeIdentifier isEqualToString:(__bridge NSString *)kUTTypeJPEG2000]) {
         fileType = NSBitmapImageFileTypeJPEG2000;
-    } else if ([typeIdentifier isEqualToString:(__bridge NSString *)kUTTypePNG]) {
-        fileType = NSBitmapImageFileTypePNG;
     } else if ([typeIdentifier isEqualToString:(__bridge NSString *)kUTTypeBMP]) {
         fileType = NSBitmapImageFileTypeBMP;
     } else if ([typeIdentifier isEqualToString:(__bridge NSString *)kUTTypeGIF]) {
         fileType = NSBitmapImageFileTypeGIF;
-    } else if ([typeIdentifier isEqualToString:(__bridge NSString *)kUTTypeTIFF]) {
-        fileType = NSBitmapImageFileTypeTIFF;
     }
-    NSData *imageData = [bitmapImageRep representationUsingType:NSBitmapImageFileTypeJPEG properties:@{}];
+    NSData *imageData = [bitmapImageRep representationUsingType:fileType properties:@{}];
     if (completionHandler) {
         completionHandler(imageData, nil);
     }
