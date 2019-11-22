@@ -1,9 +1,10 @@
-//
-//  NSImage+SDWebImageLinkPlugin.m
-//  Pods-SDWebImageLinkPlugin_Example
-//
-//  Created by 李卓立 on 2019/11/22.
-//
+/*
+* This file is part of the SDWebImage package.
+* (c) Olivier Poitrey <rs@dailymotion.com>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
 
 #import "NSImage+SDWebImageLinkPlugin.h"
 
