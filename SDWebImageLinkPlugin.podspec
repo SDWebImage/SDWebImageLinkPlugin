@@ -21,22 +21,15 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/lizhuoli1126@126.com/SDWebImageLinkPlugin'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/SDWebImage/SDWebImageLinkPlugin'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'lizhuoli1126@126.com' => 'lizhuoli1126@126.com' }
-  s.source           = { :git => 'https://github.com/lizhuoli1126@126.com/SDWebImageLinkPlugin.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { 'DreamPiggy' => 'lizhuoli1126@126.com' }
+  s.source           = { :git => 'https://github.com/SDWebImage/SDWebImageLinkPlugin.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '13.0'
+  s.osx.deployment_target = '10.15'
 
-  s.source_files = 'SDWebImageLinkPlugin/Classes/**/*'
+  s.source_files = 'SDWebImageLinkPlugin/Classes/**/*', 'SDWebImageLinkPlugin/Module/SDWebImageLinkPlugin.h'
   
-  # s.resource_bundles = {
-  #   'SDWebImageLinkPlugin' => ['SDWebImageLinkPlugin/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'SDWebImage', '~> 5.0'
 end

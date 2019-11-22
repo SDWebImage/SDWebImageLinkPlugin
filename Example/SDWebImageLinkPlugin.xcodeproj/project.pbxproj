@@ -37,8 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D0B56BB6D5AF07E907A571A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		54D9FFA9DF3619FBB4B10600 /* SDWebImageLinkPlugin.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = SDWebImageLinkPlugin.podspec; path = ../SDWebImageLinkPlugin.podspec; sourceTree = "<group>"; };
+		0D0B56BB6D5AF07E907A571A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		54D9FFA9DF3619FBB4B10600 /* SDWebImageLinkPlugin.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SDWebImageLinkPlugin.podspec; path = ../SDWebImageLinkPlugin.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* SDWebImageLinkPlugin_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDWebImageLinkPlugin_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -65,7 +65,7 @@
 		8C96302ED770493FC0045028 /* Pods_SDWebImageLinkPlugin_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDWebImageLinkPlugin_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ECF863B66511C1730DD7990 /* Pods-SDWebImageLinkPlugin_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageLinkPlugin_Example.release.xcconfig"; path = "Target Support Files/Pods-SDWebImageLinkPlugin_Example/Pods-SDWebImageLinkPlugin_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A74E33A1BC7BC01BC87D7AE3 /* Pods-SDWebImageLinkPlugin_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageLinkPlugin_Tests.debug.xcconfig"; path = "Target Support Files/Pods-SDWebImageLinkPlugin_Tests/Pods-SDWebImageLinkPlugin_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		B0E9732D40183B753EA7B9DE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		B0E9732D40183B753EA7B9DE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		EEDD17A880BC7006D403F731 /* Pods-SDWebImageLinkPlugin_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageLinkPlugin_Example.debug.xcconfig"; path = "Target Support Files/Pods-SDWebImageLinkPlugin_Example/Pods-SDWebImageLinkPlugin_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +103,6 @@
 				A74E33A1BC7BC01BC87D7AE3 /* Pods-SDWebImageLinkPlugin_Tests.debug.xcconfig */,
 				7AC15D97552AF86A896C01D3 /* Pods-SDWebImageLinkPlugin_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -258,6 +257,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -302,10 +302,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SDWebImageLinkPlugin_Example/Pods-SDWebImageLinkPlugin_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImageLinkPlugin/SDWebImageLinkPlugin.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageLinkPlugin.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,6 +499,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SDWebImageLinkPlugin/SDWebImageLinkPlugin-Prefix.pch";
 				INFOPLIST_FILE = "SDWebImageLinkPlugin/SDWebImageLinkPlugin-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -513,6 +516,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SDWebImageLinkPlugin/SDWebImageLinkPlugin-Prefix.pch";
 				INFOPLIST_FILE = "SDWebImageLinkPlugin/SDWebImageLinkPlugin-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -1,0 +1,25 @@
+PODS:
+  - SDWebImage (5.3.1):
+    - SDWebImage/Core (= 5.3.1)
+  - SDWebImage/Core (5.3.1)
+  - SDWebImageLinkPlugin (0.1.0):
+    - SDWebImage (~> 5.0)
+
+DEPENDENCIES:
+  - SDWebImageLinkPlugin (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  SDWebImageLinkPlugin:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SDWebImage: 7137d57385fb632129838c1e6ab9528a22c666cc
+  SDWebImageLinkPlugin: 4c2015a316c599ee7757a6b1eae68531b04e4856
+
+PODFILE CHECKSUM: 8765b147cfec3f0bf916e5813de13a381750b3b1
+
+COCOAPODS: 1.8.4
