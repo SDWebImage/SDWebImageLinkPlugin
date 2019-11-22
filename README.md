@@ -8,6 +8,11 @@
 [![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager/)
 [![codecov](https://codecov.io/gh/SDWebImage/SDWebImageLinkPlugin/branch/master/graph/badge.svg)](https://codecov.io/gh/SDWebImage/SDWebImageLinkPlugin)
 
+## What's for
+SDWebImageLinkPlugin is a plugin for [SDWebImage](https://github.com/rs/SDWebImage/) framework, which provide the image loading support for rich link URL, by using the [Link Presentation](https://developer.apple.com/documentation/linkpresentation) framework introduced in iOS 13/macOS 10.15.
+
+By using this plugin, it allows you to use your familiar View Category method from SDWebImage, to load rich link's poster image, with the URL or `LPMetadata`. And make it easy to use `LPLinkView` with cache support.
+
 ## Requirements
 
 + iOS 13+
