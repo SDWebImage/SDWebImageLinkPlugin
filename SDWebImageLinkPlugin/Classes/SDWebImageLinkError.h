@@ -6,13 +6,11 @@
 * file that was distributed with this source code.
 */
 
-#import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
+@import SDWebImage;
 
 FOUNDATION_EXPORT NSErrorDomain const SDWebImageLinkErrorDomain;
 
 typedef NS_ERROR_ENUM(SDWebImageLinkErrorDomain, SDWebImageLinkError) {
-    SDWebImageLinkErrorNoImageProvider = 10000, // Metadata have no any ImageProvider or IconProvider to query
+    /// Metadata have no any ImageProvider or IconProvider to query
+    SDWebImageLinkErrorNoImageProvider = 10000,
 };
-NS_ASSUME_NONNULL_END

@@ -10,6 +10,7 @@
 #import "SDWebImageLinkDefine.h"
 #import "SDWebImageLinkError.h"
 #import "NSImage+SDWebImageLinkPlugin.h"
+#import "NSURL+SDWebImageLinkPlugin.h"
 #import <LinkPresentation/LinkPresentation.h>
 #if SD_UIKIT
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -38,7 +39,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        
+        self.timeout = 30;
+        self.shouldFetchSubresources = YES;
     }
     return self;
 }
@@ -59,42 +61,58 @@
 }
 
 - (id<SDWebImageOperation>)requestImageWithURL:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
-    
-    LPMetadataProvider *provider = [[LPMetadataProvider alloc] init];
-    [provider startFetchingMetadataForURL:url completionHandler:^(LPLinkMetadata * _Nullable metadata, NSError * _Nullable error) {
-        if (error) {
-            if (completedBlock) {
-                completedBlock(nil, nil, error, YES);
-            }
-            return;
-        }
-        NSItemProvider *imageProvider = metadata.imageProvider;
-        if (!imageProvider) {
-            // Check icon provider as a backup
-            NSItemProvider *iconProvider = metadata.iconProvider;
-            if (!iconProvider) {
-                // No image to query, failed
+    // Let's check wether input URL already have an associated LPLinkMetadata
+    LPLinkMetadata *metadata = url.sd_linkMetadata;
+    if (metadata) {
+        [self fetchImageWithMetadata:metadata options:options context:context progress:progressBlock completed:completedBlock];
+        return nil;
+    } else {
+        LPMetadataProvider *provider = [[LPMetadataProvider alloc] init];
+        provider.timeout = self.timeout;
+        provider.shouldFetchSubresources = self.shouldFetchSubresources;
+        [provider startFetchingMetadataForURL:url completionHandler:^(LPLinkMetadata * _Nullable metadata, NSError * _Nullable error) {
+            if (error) {
                 if (completedBlock) {
-                    dispatch_main_async_safe(^{
-                        NSError *error = [NSError errorWithDomain:SDWebImageLinkErrorDomain code:SDWebImageLinkErrorNoImageProvider userInfo:nil];
-                        completedBlock(nil, nil, error, YES);
-                    });
+                    completedBlock(nil, nil, error, YES);
                 }
                 return;
             }
-            imageProvider = iconProvider;
+            // Associated the link metadata to URL, weak reference
+            url.sd_linkMetadata = metadata;
+            [self fetchImageWithMetadata:metadata options:options context:context progress:progressBlock completed:completedBlock];
+        }];
+        return provider;
+    }
+}
+
+- (void)fetchImageWithMetadata:(LPLinkMetadata *)metadata options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
+    NSURL *url = metadata.originalURL;
+    // Parse context option
+    BOOL requestData = [context[SDWebImageContextLinkRequestImageData] boolValue];
+    // Check image provider
+    NSItemProvider *imageProvider = metadata.imageProvider;
+    if (!imageProvider) {
+        // Check icon provider as a backup
+        NSItemProvider *iconProvider = metadata.iconProvider;
+        if (!iconProvider) {
+            // No image to query, failed
+            if (completedBlock) {
+                dispatch_main_async_safe(^{
+                    NSError *error = [NSError errorWithDomain:SDWebImageLinkErrorDomain code:SDWebImageLinkErrorNoImageProvider userInfo:nil];
+                    completedBlock(nil, nil, error, YES);
+                });
+            }
+            return;
         }
-        BOOL requestData = [context[SDWebImageContextLinkRequestImageData] boolValue];
-        if (requestData) {
-            // Request the image data and decode
-            [self fetchImageDataWithProvider:imageProvider url:url options:options context:context progress:progressBlock completed:completedBlock];
-        } else {
-            // Only request the image object, faster
-            [self fetchImageWithProvider:imageProvider url:url progress:progressBlock completed:completedBlock];
-        }
-    }];
-    
-    return provider;
+        imageProvider = iconProvider;
+    }
+    if (requestData) {
+        // Request the image data and decode
+        [self fetchImageDataWithProvider:imageProvider url:url options:options context:context progress:progressBlock completed:completedBlock];
+    } else {
+        // Only request the image object, faster
+        [self fetchImageWithProvider:imageProvider url:url progress:progressBlock completed:completedBlock];
+    }
 }
 
 // Fetch image and data with `loadDataRepresentationForTypeIdentifier` API

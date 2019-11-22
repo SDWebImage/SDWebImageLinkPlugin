@@ -20,3 +20,5 @@ FOUNDATION_EXPORT const unsigned char SDWebImageLinkPluginVersionString[];
 #import <SDWebImageLinkPlugin/SDWebImageLinkDefine.h>
 #import <SDWebImageLinkPlugin/SDWebImageLinkError.h>
 #import <SDWebImageLinkPlugin/NSURL+SDWebImageLinkPlugin.h>
+#import <SDWebImageLinkPlugin/NSImage+SDWebImageLinkPlugin.h>
+#import <SDWebImageLinkPlugin/LPLinkView+WebCache.h>

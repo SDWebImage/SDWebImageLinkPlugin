@@ -6,12 +6,12 @@
 * file that was distributed with this source code.
 */
 
-#import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
+@import SDWebImage;
+@import LinkPresentation;
 
 @interface NSURL (SDWebImageLinkPlugin)
 
-@end
+/// A URL can have its associated link metadata, this is a weak reference. (`LPLinkMetadata` retain the `NSURL`, and `NSURL` can weak reference the `LPLinkMetadata`)
+@property (nonatomic, weak) LPLinkMetadata *sd_linkMetadata;
 
-NS_ASSUME_NONNULL_END
+@end

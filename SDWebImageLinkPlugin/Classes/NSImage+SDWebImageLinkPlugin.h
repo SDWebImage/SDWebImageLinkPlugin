@@ -9,7 +9,8 @@
 
 #if SD_MAC
 
-@interface NSImage (SDWebImageLinkPlugin) <NSItemProviderReading>
+/// Make NSImage supports the `NSItemProviderReading` as well as UIKit's UIImage
+@interface NSImage (SDWebImageLinkPlugin) <NSItemProviderReading, NSItemProviderWriting>
 
 @end
 

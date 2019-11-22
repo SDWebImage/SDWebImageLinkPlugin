@@ -33,8 +33,11 @@
     [self.view addSubview:self.linkView];
     [self.view addSubview:self.imageView];
     
+    [self.linkView sd_setImageWithURL:url1 placeholderImage:nil options:0 completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        NSLog(@"%@", @"LPLinkView metadata load success");
+    }];
     [self.imageView sd_setImageWithURL:url2 completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        NSLog(@"%@", @"LPMetadata image load success");
+        NSLog(@"%@", @"UIImageView image load success");
     }];
 }
 
