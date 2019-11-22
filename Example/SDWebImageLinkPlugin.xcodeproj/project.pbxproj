@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3253E1102387EAC4007ACAD8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253E10F2387EAC4007ACAD8 /* AppDelegate.m */; };
+		3253E1132387EAC4007ACAD8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253E1122387EAC4007ACAD8 /* ViewController.m */; };
+		3253E1152387EAC5007ACAD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3253E1142387EAC5007ACAD8 /* Assets.xcassets */; };
+		3253E1182387EAC5007ACAD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3253E1162387EAC5007ACAD8 /* Main.storyboard */; };
+		3253E11B2387EAC5007ACAD8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253E11A2387EAC5007ACAD8 /* main.m */; };
 		356F339F2E31974F1AC0A558 /* Pods_SDWebImageLinkPlugin_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E4D6B07E67D3523A930F04D /* Pods_SDWebImageLinkPlugin_Example.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -23,6 +28,7 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		B989383922F630505442228C /* Pods_SDWebImageLinkPlugin_Example_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23347A87D45A8E975727A81F /* Pods_SDWebImageLinkPlugin_Example_macOS.framework */; };
 		F3E4F92119788024CFCD0515 /* Pods_SDWebImageLinkPlugin_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C96302ED770493FC0045028 /* Pods_SDWebImageLinkPlugin_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,7 +43,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		009CBCA321FA76C679F6A420 /* Pods-SDWebImageLinkPlugin_Example macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageLinkPlugin_Example macOS.release.xcconfig"; path = "Target Support Files/Pods-SDWebImageLinkPlugin_Example macOS/Pods-SDWebImageLinkPlugin_Example macOS.release.xcconfig"; sourceTree = "<group>"; };
 		0D0B56BB6D5AF07E907A571A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		23347A87D45A8E975727A81F /* Pods_SDWebImageLinkPlugin_Example_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDWebImageLinkPlugin_Example_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3253E10C2387EAC4007ACAD8 /* SDWebImageLinkPlugin_Example macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SDWebImageLinkPlugin_Example macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3253E10E2387EAC4007ACAD8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3253E10F2387EAC4007ACAD8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3253E1112387EAC4007ACAD8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		3253E1122387EAC4007ACAD8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3253E1142387EAC5007ACAD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3253E1172387EAC5007ACAD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3253E1192387EAC5007ACAD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3253E11A2387EAC5007ACAD8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3253E11C2387EAC5007ACAD8 /* SDWebImageLinkPlugin_Example_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDWebImageLinkPlugin_Example_macOS.entitlements; sourceTree = "<group>"; };
 		54D9FFA9DF3619FBB4B10600 /* SDWebImageLinkPlugin.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SDWebImageLinkPlugin.podspec; path = ../SDWebImageLinkPlugin.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* SDWebImageLinkPlugin_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDWebImageLinkPlugin_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -64,12 +82,21 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8C96302ED770493FC0045028 /* Pods_SDWebImageLinkPlugin_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDWebImageLinkPlugin_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ECF863B66511C1730DD7990 /* Pods-SDWebImageLinkPlugin_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageLinkPlugin_Example.release.xcconfig"; path = "Target Support Files/Pods-SDWebImageLinkPlugin_Example/Pods-SDWebImageLinkPlugin_Example.release.xcconfig"; sourceTree = "<group>"; };
+		A44A15F87C80B4454BC24F64 /* Pods-SDWebImageLinkPlugin_Example macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageLinkPlugin_Example macOS.debug.xcconfig"; path = "Target Support Files/Pods-SDWebImageLinkPlugin_Example macOS/Pods-SDWebImageLinkPlugin_Example macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		A74E33A1BC7BC01BC87D7AE3 /* Pods-SDWebImageLinkPlugin_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageLinkPlugin_Tests.debug.xcconfig"; path = "Target Support Files/Pods-SDWebImageLinkPlugin_Tests/Pods-SDWebImageLinkPlugin_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		B0E9732D40183B753EA7B9DE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		EEDD17A880BC7006D403F731 /* Pods-SDWebImageLinkPlugin_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageLinkPlugin_Example.debug.xcconfig"; path = "Target Support Files/Pods-SDWebImageLinkPlugin_Example/Pods-SDWebImageLinkPlugin_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3253E1092387EAC4007ACAD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B989383922F630505442228C /* Pods_SDWebImageLinkPlugin_Example_macOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F587195388D20070C39A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -95,6 +122,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3253E10D2387EAC4007ACAD8 /* SDWebImageLinkPlugin_Example macOS */ = {
+			isa = PBXGroup;
+			children = (
+				3253E10E2387EAC4007ACAD8 /* AppDelegate.h */,
+				3253E10F2387EAC4007ACAD8 /* AppDelegate.m */,
+				3253E1112387EAC4007ACAD8 /* ViewController.h */,
+				3253E1122387EAC4007ACAD8 /* ViewController.m */,
+				3253E1142387EAC5007ACAD8 /* Assets.xcassets */,
+				3253E1162387EAC5007ACAD8 /* Main.storyboard */,
+				3253E1192387EAC5007ACAD8 /* Info.plist */,
+				3253E11A2387EAC5007ACAD8 /* main.m */,
+				3253E11C2387EAC5007ACAD8 /* SDWebImageLinkPlugin_Example_macOS.entitlements */,
+			);
+			path = "SDWebImageLinkPlugin_Example macOS";
+			sourceTree = "<group>";
+		};
 		350F41E2FF18CC9B1DC25DA7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +145,8 @@
 				8ECF863B66511C1730DD7990 /* Pods-SDWebImageLinkPlugin_Example.release.xcconfig */,
 				A74E33A1BC7BC01BC87D7AE3 /* Pods-SDWebImageLinkPlugin_Tests.debug.xcconfig */,
 				7AC15D97552AF86A896C01D3 /* Pods-SDWebImageLinkPlugin_Tests.release.xcconfig */,
+				A44A15F87C80B4454BC24F64 /* Pods-SDWebImageLinkPlugin_Example macOS.debug.xcconfig */,
+				009CBCA321FA76C679F6A420 /* Pods-SDWebImageLinkPlugin_Example macOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -112,6 +157,7 @@
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for SDWebImageLinkPlugin */,
 				6003F5B5195388D20070C39A /* Tests */,
+				3253E10D2387EAC4007ACAD8 /* SDWebImageLinkPlugin_Example macOS */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				350F41E2FF18CC9B1DC25DA7 /* Pods */,
@@ -123,6 +169,7 @@
 			children = (
 				6003F58A195388D20070C39A /* SDWebImageLinkPlugin_Example.app */,
 				6003F5AE195388D20070C39A /* SDWebImageLinkPlugin_Tests.xctest */,
+				3253E10C2387EAC4007ACAD8 /* SDWebImageLinkPlugin_Example macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,6 +183,7 @@
 				6003F5AF195388D20070C39A /* XCTest.framework */,
 				6E4D6B07E67D3523A930F04D /* Pods_SDWebImageLinkPlugin_Example.framework */,
 				8C96302ED770493FC0045028 /* Pods_SDWebImageLinkPlugin_Tests.framework */,
+				23347A87D45A8E975727A81F /* Pods_SDWebImageLinkPlugin_Example_macOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -199,6 +247,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3253E10B2387EAC4007ACAD8 /* SDWebImageLinkPlugin_Example macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3253E11D2387EAC5007ACAD8 /* Build configuration list for PBXNativeTarget "SDWebImageLinkPlugin_Example macOS" */;
+			buildPhases = (
+				5E70275193358104622278C7 /* [CP] Check Pods Manifest.lock */,
+				3253E1082387EAC4007ACAD8 /* Sources */,
+				3253E1092387EAC4007ACAD8 /* Frameworks */,
+				3253E10A2387EAC4007ACAD8 /* Resources */,
+				49F1AE597C29D62BF74B462B /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SDWebImageLinkPlugin_Example macOS";
+			productName = "SDWebImageLinkPlugin_Example macOS";
+			productReference = 3253E10C2387EAC4007ACAD8 /* SDWebImageLinkPlugin_Example macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		6003F589195388D20070C39A /* SDWebImageLinkPlugin_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "SDWebImageLinkPlugin_Example" */;
@@ -247,6 +314,10 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "lizhuoli1126@126.com";
 				TargetAttributes = {
+					3253E10B2387EAC4007ACAD8 = {
+						CreatedOnToolsVersion = 11.2;
+						ProvisioningStyle = Automatic;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -268,11 +339,21 @@
 			targets = (
 				6003F589195388D20070C39A /* SDWebImageLinkPlugin_Example */,
 				6003F5AD195388D20070C39A /* SDWebImageLinkPlugin_Tests */,
+				3253E10B2387EAC4007ACAD8 /* SDWebImageLinkPlugin_Example macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3253E10A2387EAC4007ACAD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3253E1152387EAC5007ACAD8 /* Assets.xcassets in Resources */,
+				3253E1182387EAC5007ACAD8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F588195388D20070C39A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -302,8 +383,8 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SDWebImageLinkPlugin_Example/Pods-SDWebImageLinkPlugin_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImageLinkPlugin/SDWebImageLinkPlugin.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageLinkPlugin-iOS/SDWebImageLinkPlugin.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -313,6 +394,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDWebImageLinkPlugin_Example/Pods-SDWebImageLinkPlugin_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49F1AE597C29D62BF74B462B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SDWebImageLinkPlugin_Example macOS/Pods-SDWebImageLinkPlugin_Example macOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-macOS/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageLinkPlugin-macOS/SDWebImageLinkPlugin.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageLinkPlugin.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDWebImageLinkPlugin_Example macOS/Pods-SDWebImageLinkPlugin_Example macOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E70275193358104622278C7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SDWebImageLinkPlugin_Example macOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		81B4B058986F41286407B25B /* [CP] Check Pods Manifest.lock */ = {
@@ -362,6 +485,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3253E1082387EAC4007ACAD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3253E1132387EAC4007ACAD8 /* ViewController.m in Sources */,
+				3253E11B2387EAC5007ACAD8 /* main.m in Sources */,
+				3253E1102387EAC4007ACAD8 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F586195388D20070C39A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -391,6 +524,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		3253E1162387EAC5007ACAD8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3253E1172387EAC5007ACAD8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		6003F596195388D20070C39A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -418,6 +559,87 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3253E11E2387EAC5007ACAD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A44A15F87C80B4454BC24F64 /* Pods-SDWebImageLinkPlugin_Example macOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "SDWebImageLinkPlugin_Example macOS/SDWebImageLinkPlugin_Example_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "SDWebImageLinkPlugin_Example macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.SDWebImageLinkPlugin-Example-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3253E11F2387EAC5007ACAD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 009CBCA321FA76C679F6A420 /* Pods-SDWebImageLinkPlugin_Example macOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "SDWebImageLinkPlugin_Example macOS/SDWebImageLinkPlugin_Example_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "SDWebImageLinkPlugin_Example macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.SDWebImageLinkPlugin-Example-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		6003F5BD195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -451,7 +673,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -484,7 +707,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -574,6 +798,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3253E11D2387EAC5007ACAD8 /* Build configuration list for PBXNativeTarget "SDWebImageLinkPlugin_Example macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3253E11E2387EAC5007ACAD8 /* Debug */,
+				3253E11F2387EAC5007ACAD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6003F585195388D10070C39A /* Build configuration list for PBXProject "SDWebImageLinkPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

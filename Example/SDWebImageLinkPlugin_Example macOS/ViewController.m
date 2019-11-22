@@ -1,36 +1,35 @@
 //
-//  SDViewController.m
-//  SDWebImageLinkPlugin
+//  ViewController.m
+//  SDWebImageLinkPlugin_Example macOS
 //
-//  Created by lizhuoli1126@126.com on 11/21/2019.
-//  Copyright (c) 2019 lizhuoli1126@126.com. All rights reserved.
+//  Created by 李卓立 on 2019/11/22.
+//  Copyright © 2019 lizhuoli1126@126.com. All rights reserved.
 //
 
-#import "SDViewController.h"
+#import "ViewController.h"
 #import <LinkPresentation/LinkPresentation.h>
 #import <SDWebImage/SDWebImage.h>
 #import <SDWebImageLinkPlugin/SDWebImageLinkPlugin.h>
 
-@interface SDViewController ()
+@interface ViewController ()
 
 @property (nonatomic, strong) LPLinkView *linkView;
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) NSImageView *imageView;
 
 @end
 
-@implementation SDViewController
+@implementation ViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     [SDImageLoadersManager.sharedManager addLoader:SDImageLinkLoader.sharedLoader];
     SDWebImageManager.defaultImageLoader = SDImageLoadersManager.sharedManager;
     
-    NSURL *url1 = [NSURL URLWithString:@"https://www.apple.com/iphone/"];
+    NSURL *url1 = [NSURL URLWithString:@"https://www.apple.com/mac/"];
     NSURL *url2 = [NSURL URLWithString:@"https://webkit.org/"];
     self.linkView = [[LPLinkView alloc] initWithURL:url1];
-    self.imageView = [[UIImageView alloc] init];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView = [[NSImageView alloc] init];
+    self.imageView.imageScaling = NSImageScaleProportionallyUpOrDown;
     [self.view addSubview:self.linkView];
     [self.view addSubview:self.imageView];
     
@@ -39,8 +38,8 @@
     }];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)viewDidLayout {
+    [super viewDidLayout];
     self.linkView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height / 2);
     self.imageView.frame = CGRectMake(0, self.view.bounds.size.height / 2, self.view.bounds.size.width, self.view.bounds.size.height / 2);
 }

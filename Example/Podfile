@@ -1,8 +1,7 @@
 use_frameworks!
 
-platform :ios, '13.0'
-
 target 'SDWebImageLinkPlugin_Example' do
+  platform :ios, '13.0'
   pod 'SDWebImageLinkPlugin', :path => '../'
 
   target 'SDWebImageLinkPlugin_Tests' do
@@ -10,4 +9,9 @@ target 'SDWebImageLinkPlugin_Example' do
 
     
   end
+end
+
+target 'SDWebImageLinkPlugin_Example macOS' do
+  platform :osx, '10.15'
+  pod 'SDWebImageLinkPlugin', :path => '../'
 end

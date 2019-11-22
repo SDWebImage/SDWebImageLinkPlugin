@@ -27,6 +27,10 @@
 		3253E0F02387E94D007ACAD8 /* SDWebImageLinkError.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E0C62387E6B4007ACAD8 /* SDWebImageLinkError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3253E0F12387E94D007ACAD8 /* SDWebImageLinkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253E0CA2387E6B4007ACAD8 /* SDWebImageLinkError.m */; };
 		3253E0F22387E951007ACAD8 /* SDWebImageLinkPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E0B92387DCB2007ACAD8 /* SDWebImageLinkPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3253E1262387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253E1242387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.m */; };
+		3253E1272387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253E1242387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.m */; };
+		3253E1282387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E1252387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3253E1292387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E1252387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +48,8 @@
 		3253E0D52387E8C5007ACAD8 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = "<group>"; };
 		3253E0DE2387E8DA007ACAD8 /* SDWebImageLinkPlugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SDWebImageLinkPlugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3253E0E62387E900007ACAD8 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/Mac/SDWebImage.framework; sourceTree = "<group>"; };
+		3253E1242387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+SDWebImageLinkPlugin.m"; sourceTree = "<group>"; };
+		3253E1252387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+SDWebImageLinkPlugin.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,8 @@
 		3253E0C12387E6B4007ACAD8 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3253E1252387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.h */,
+				3253E1242387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.m */,
 				3253E0C52387E6B4007ACAD8 /* NSURL+SDWebImageLinkPlugin.h */,
 				3253E0C82387E6B4007ACAD8 /* NSURL+SDWebImageLinkPlugin.m */,
 				3253E0C72387E6B4007ACAD8 /* SDImageLinkLoader.h */,
@@ -125,6 +133,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3253E1282387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.h in Headers */,
 				3253E0D02387E6B4007ACAD8 /* SDImageLinkLoader.h in Headers */,
 				3253E0CE2387E6B4007ACAD8 /* NSURL+SDWebImageLinkPlugin.h in Headers */,
 				3253E0D22387E6B4007ACAD8 /* SDWebImageLinkDefine.h in Headers */,
@@ -137,6 +146,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3253E1292387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.h in Headers */,
 				3253E0EE2387E94D007ACAD8 /* SDWebImageLinkDefine.h in Headers */,
 				3253E0EC2387E94D007ACAD8 /* SDImageLinkLoader.h in Headers */,
 				3253E0EA2387E94D007ACAD8 /* NSURL+SDWebImageLinkPlugin.h in Headers */,
@@ -244,6 +254,7 @@
 			files = (
 				3253E0D32387E6B4007ACAD8 /* SDWebImageLinkError.m in Sources */,
 				3253E0CC2387E6B4007ACAD8 /* SDWebImageLinkDefine.m in Sources */,
+				3253E1262387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.m in Sources */,
 				3253E0CB2387E6B4007ACAD8 /* SDImageLinkLoader.m in Sources */,
 				3253E0D12387E6B4007ACAD8 /* NSURL+SDWebImageLinkPlugin.m in Sources */,
 			);
@@ -255,6 +266,7 @@
 			files = (
 				3253E0F12387E94D007ACAD8 /* SDWebImageLinkError.m in Sources */,
 				3253E0EB2387E94D007ACAD8 /* NSURL+SDWebImageLinkPlugin.m in Sources */,
+				3253E1272387EDE7007ACAD8 /* NSImage+SDWebImageLinkPlugin.m in Sources */,
 				3253E0EF2387E94D007ACAD8 /* SDWebImageLinkDefine.m in Sources */,
 				3253E0ED2387E94D007ACAD8 /* SDImageLinkLoader.m in Sources */,
 			);

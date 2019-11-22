@@ -9,20 +9,25 @@
 #import "SDImageLinkLoader.h"
 #import "SDWebImageLinkDefine.h"
 #import "SDWebImageLinkError.h"
+#import "NSImage+SDWebImageLinkPlugin.h"
 #import <LinkPresentation/LinkPresentation.h>
 #if SD_UIKIT
 #import <MobileCoreServices/MobileCoreServices.h>
 #endif
 
-@interface LPMetadataProvider (SDWebImageLinkPlugin) <SDWebImageOperation>
+@interface LPMetadataProvider (SDWebImageOperation) <SDWebImageOperation>
 
 @end
 
-#if SD_MAC
-@interface NSImage (SDWebImageLinkPlugin) <NSItemProviderReading>
+@interface SDImageLinkLoaderContext : NSObject
+
+@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, copy) SDImageLoaderProgressBlock progressBlock;
 
 @end
-#endif
+
+@implementation SDImageLinkLoaderContext
+@end
 
 @interface SDImageLinkLoader ()
 
@@ -70,63 +75,94 @@
             if (!iconProvider) {
                 // No image to query, failed
                 if (completedBlock) {
-                    NSError *error = [NSError errorWithDomain:SDWebImageLinkErrorDomain code:SDWebImageLinkErrorNoImageProvider userInfo:nil];
-                    completedBlock(nil, nil, error, YES);
+                    dispatch_main_async_safe(^{
+                        NSError *error = [NSError errorWithDomain:SDWebImageLinkErrorDomain code:SDWebImageLinkErrorNoImageProvider userInfo:nil];
+                        completedBlock(nil, nil, error, YES);
+                    });
                 }
                 return;
             }
             imageProvider = iconProvider;
         }
-        [self fetchImageProvider:imageProvider url:url options:options context:context completed:completedBlock];
+        BOOL requestData = [context[SDWebImageContextLinkRequestImageData] boolValue];
+        if (requestData) {
+            // Request the image data and decode
+            [self fetchImageDataWithProvider:imageProvider url:url options:options context:context progress:progressBlock completed:completedBlock];
+        } else {
+            // Only request the image object, faster
+            [self fetchImageWithProvider:imageProvider url:url progress:progressBlock completed:completedBlock];
+        }
     }];
     
     return provider;
 }
 
-- (void)fetchImageProvider:(NSItemProvider *)imageProvider url:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context completed:(SDImageLoaderCompletedBlock)completedBlock {
-    BOOL requestData = [context[SDWebImageContextLinkRequestImageData] boolValue];
+// Fetch image and data with `loadDataRepresentationForTypeIdentifier` API
+- (void)fetchImageDataWithProvider:(NSItemProvider *)imageProvider url:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
+    SDImageLinkLoaderContext *loaderContext = [SDImageLinkLoaderContext new];
+    loaderContext.url = url;
+    loaderContext.progressBlock = progressBlock;
+    __block NSProgress *progress;
+    progress = [imageProvider loadDataRepresentationForTypeIdentifier:(__bridge NSString *)kUTTypeImage completionHandler:^(NSData * _Nullable data, NSError * _Nullable error) {
+        if (progressBlock && progress) {
+            [progress removeObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) context:(__bridge void *)(loaderContext)];
+        }
+        if (error) {
+            if (completedBlock) {
+                dispatch_main_async_safe(^{
+                    completedBlock(nil, nil, error, YES);
+                });
+            }
+            return;
+        }
+        // This is global queue, decode it
+        UIImage *image = SDImageLoaderDecodeImageData(data, url, options, context);
+        if (!image) {
+            error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
+        }
+        if (completedBlock) {
+            dispatch_main_async_safe(^{
+                completedBlock(image, data, error, YES);
+            });
+        }
+    }];
     
-    if (requestData) {
-        // Request the image data and decode
-        [imageProvider loadDataRepresentationForTypeIdentifier:(__bridge NSString *)kUTTypeImage completionHandler:^(NSData * _Nullable data, NSError * _Nullable error) {
-            if (error) {
-                return;
-            }
-            // This is global queue, decode it
-            UIImage *image = SDImageLoaderDecodeImageData(data, url, options, context);
+    if (progressBlock && progress) {
+        [progress addObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) options:NSKeyValueObservingOptionNew context:(__bridge void *)(loaderContext)];
+    }
+}
+
+// Fetch image with `loadObjectOfClass` API
+- (void)fetchImageWithProvider:(NSItemProvider *)imageProvider url:(NSURL *)url progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
+    SDImageLinkLoaderContext *loaderContext = [SDImageLinkLoaderContext new];
+    loaderContext.url = url;
+    loaderContext.progressBlock = progressBlock;
+    __block NSProgress *progress;
+    progress = [imageProvider loadObjectOfClass:UIImage.class completionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
+        if (progressBlock && progress) {
+            [progress removeObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) context:(__bridge void *)(loaderContext)];
+        }
+        if (error) {
             if (completedBlock) {
-                if (image) {
-                    dispatch_main_async_safe(^{
-                        completedBlock(image, data, nil, YES);
-                    });
-                } else {
-                    NSError *error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
-                    dispatch_main_async_safe(^{
-                        completedBlock(nil, nil, error, YES);
-                    });
-                }
+                dispatch_main_async_safe(^{
+                    completedBlock(nil, nil, error, YES);
+                });
             }
-        }];
-    } else {
-        // Only request the image object, faster
-        [imageProvider loadObjectOfClass:UIImage.class completionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
-            if (error) {
-                return;
-            }
-            NSAssert([image isKindOfClass:UIImage.class], @"NSItemProvider fetched object should be UIImage class");
-            if (completedBlock) {
-                if (image) {
-                    dispatch_main_async_safe(^{
-                        completedBlock(image, nil, error, YES);
-                    });
-                } else {
-                    NSError *error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
-                    dispatch_main_async_safe(^{
-                        completedBlock(nil, nil, error, YES);
-                    });
-                }
-            }
-        }];
+            return;
+        }
+        NSAssert([image isKindOfClass:UIImage.class], @"NSItemProvider loaded object should be UIImage class");
+        if (!image) {
+            error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
+        }
+        if (completedBlock) {
+            dispatch_main_async_safe(^{
+                completedBlock(image, nil, error, YES);
+            });
+        }
+    }];
+    
+    if (progressBlock && progress) {
+        [progress addObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) options:NSKeyValueObservingOptionNew context:(__bridge void *)(loaderContext)];
     }
 }
 
@@ -137,6 +173,27 @@
                                 || error.code == SDWebImageErrorBadImageData);
     }
     return shouldBlockFailedURL;
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([object isKindOfClass:NSProgress.class]) {
+        SDImageLinkLoaderContext *loaderContext = (__bridge id)(context);
+        if ([loaderContext isKindOfClass:SDImageLinkLoaderContext.class]) {
+            NSURL *url = loaderContext.url;
+            SDImageLoaderProgressBlock progressBlock = loaderContext.progressBlock;
+            NSProgress *progress = object;
+            if (progressBlock) {
+                progressBlock(progress.completedUnitCount, progress.totalUnitCount, url);
+            }
+        } else {
+            [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 @end
