@@ -47,7 +47,50 @@ let package = Package(
 
 ## Usage
 
-TODO
+#### Setup Loader
+
+To use the LinkPlugin, you should setup the loader firstly. See more here in [Wiki - Loaders Manager](https://github.com/SDWebImage/SDWebImage/wiki/Advanced-Usage#loaders-manager)
+
++ Objective-C
+
+```objective-c
+[SDImageLoadersManager.sharedManager addLoader:SDImageLinkLoader.sharedLoader];
+SDWebImageManager.defaultImageLoader = SDImageLoadersManager.sharedManager;
+```
+
+#### Load Rich Link on UIImageView/LPLinkView
+
+The simple and fast usage, it to use the LinkPlugin provided category on `UIImageView` and `LPLinkView`.
+
++ Objective-C
+
+```objectivec
+NSURL *url1 = [NSURL URLWithString:@"https://www.apple.com/iphone/"];
+NSURL *url2 = [NSURL URLWithString:@"https://webkit.org/"];
+self.linkView = [[LPLinkView alloc] initWithURL:url1];
+self.imageView = [[UIImageView alloc] init];
+self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+[self.view addSubview:self.linkView];
+[self.view addSubview:self.imageView];
+
+[self.linkView sd_setImageWithURL:url1 placeholderImage:nil options:SDWebImageFromLoaderOnly completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    NSLog(@"%@", @"LPLinkView metadata load success");
+}];
+[self.imageView sd_setImageWithURL:url2 completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    NSLog(@"%@", @"UIImageView image load success");
+}];
+```
+
+Note: You can always read and write the `LPMetadata` object on the associated `NSURL` object, to provide an exist metadata from your serialization solution, or update the metadata. If the provided URL have an associated metadata, we don't do extra query with [LPMetadataProvider](https://developer.apple.com/documentation/linkpresentation/lpmetadataprovider?language=objc).
+
++ Objective-C
+
+```objective-c
+LPLinkMetadata *metadata = imageURL.sd_linkMetadata;
+NSLog(@"[title]: %@\n[url]: %@\n[image]: %@", metadata.title, metadata.URL, metadata.imageProvider);
+```
+
+Note: By default, we prefer to load the image only, which does not generate the image data. This can increase the loading speed. But however, you can also specify to generate the image data by using `SDWebImageContextLinkRequestImageData` context option.
 
 ## Demo
 
@@ -60,6 +103,13 @@ open SDWebImageLinkPlugin.xcworkspace
 ```
 
 After the Xcode project was opened, click `Run` to build and run the demo.
+
+## Screenshot
+
+<img src="https://raw.githubusercontent.com/SDWebImage/SDWebImageLinkPlugin/master/Example/Screenshot/LinkDemo.png" width="300" />
+<img src="https://raw.githubusercontent.com/SDWebImage/SDWebImageLinkPlugin/master/Example/Screenshot/LinkDemo-macOS.png" width="600" />
+
+These rich link image is from the [Apple site](https://www.apple.com/) and [WebKit site](https://webkit.org/).
 
 ## Author
 
