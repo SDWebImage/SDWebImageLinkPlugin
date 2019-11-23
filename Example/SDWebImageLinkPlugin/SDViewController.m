@@ -21,8 +21,8 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        NSURL *url = nil;
-        _linkView = [[LPLinkView alloc] initWithURL:url]; // We must pass nil here, or will cause Cell-reusing issues on iOS 13.1.
+        LPLinkMetadata *metadata = [LPLinkMetadata new]; // We must pass empty metadata here, or will cause Cell-reusing issues on iOS 13.1.
+        _linkView = [[LPLinkView alloc] initWithMetadata:metadata];
         [self.contentView addSubview:_linkView];
     }
     return self;
