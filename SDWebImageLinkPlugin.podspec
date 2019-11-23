@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'SDWebImageLinkPlugin'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of SDWebImageLinkPlugin.'
+  s.summary          = 'A SDWebImage loader plugin, to support load rich link image with LinkPresentation framework'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+SDWebImageLinkPlugin is a plugin for SDWebImage framework, which provide the image loading support for rich link URL, by using the Link Presentation framework introduced in iOS 13/macOS 10.15.
                        DESC
 
   s.homepage         = 'https://github.com/SDWebImage/SDWebImageLinkPlugin'
