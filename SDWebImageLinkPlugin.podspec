@@ -31,5 +31,10 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'SDWebImageLinkPlugin/Classes/**/*', 'SDWebImageLinkPlugin/Module/SDWebImageLinkPlugin.h'
   
+  s.pod_target_xcconfig = {
+    'SUPPORTS_MACCATALYST' => 'YES',
+    'DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER' => 'NO'
+  }
+  
   s.dependency 'SDWebImage', '~> 5.0'
 end
