@@ -9,6 +9,7 @@
 #import "SDViewController.h"
 #import <SDWebImage/SDWebImage.h>
 #import <SDWebImageLinkPlugin/SDWebImageLinkPlugin.h>
+#import <SafariServices/SafariServices.h>
 
 @interface LinkTableViewCell : UITableViewCell
 
@@ -85,7 +86,7 @@
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(switchView)];
-    self.useLinkView = YES;
+    self.useLinkView = NO;
     self.objects = [NSArray arrayWithObjects:
                     @"https://www.apple.com/",
                     @"https://www.apple.com/music/",
@@ -145,6 +146,14 @@
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSURL *url = [NSURL URLWithString:self.objects[indexPath.row]];
+    
+    SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+    [self presentViewController:safariVC animated:YES completion:nil];
 }
 
 @end
