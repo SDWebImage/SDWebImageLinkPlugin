@@ -13,6 +13,8 @@ SDWebImageLinkPlugin is a plugin for [SDWebImage](https://github.com/rs/SDWebIma
 
 By using this plugin, it allows you to use your familiar View Category method from SDWebImage, to load rich link's poster image, with the URL or `LPMetadata`. And make it easy to use `LPLinkView` with cache support.
 
+See more about Link Presentation in [WWDC 262: Embedding and Sharing Visually Rich Links](https://developer.apple.com/videos/play/wwdc2019/262/)
+
 ## Requirements
 
 + iOS 13+
@@ -59,41 +61,74 @@ To use the LinkPlugin, you should setup the loader firstly. See more here in [Wi
 + Objective-C
 
 ```objective-c
-[SDImageLoadersManager.sharedManager addLoader:SDImageLinkLoader.sharedLoader];
-SDWebImageManager.defaultImageLoader = SDImageLoadersManager.sharedManager;
+// Put this code on AppDelegate.m
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // Override point for customization after application launch.
+    [SDImageLoadersManager.sharedManager addLoader:SDImageLinkLoader.sharedLoader];
+    SDWebImageManager.defaultImageLoader = SDImageLoadersManager.sharedManager;
+    return YES;
+}
 ```
 
-#### Load Rich Link on UIImageView/LPLinkView
+#### Load Rich Link on UIImageView
 
-The simple and fast usage, it to use the LinkPlugin provided category on `UIImageView` and `LPLinkView`.
+The simple and fast usage, it to use the SDWebImage provided category on `UIImageView`.
+
++ Objective-C
+
+```objective-c
+NSURL *url = [NSURL URLWithString:@"https://webkit.org/"];
+self.imageView = [[UIImageView alloc] init];
+self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+[self.view addSubview:self.imageView];
+[self.imageView sd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    NSLog(@"%@", @"UIImageView image load success");
+}];
+```
+
+#### Load Rich Link on LPLinkView
+
+Important note on `LPLinkView`: Current iOS 13.0 contains bug that `LPLinkView` may not compatible with TableView/CollectionView cell-reusing. To workaround this issue, you can choose one of these below (one is OK):
+
+1. Cache the loaded `LPMetadata` by yourself, always ensure the `sd_linkMetadata` is not nil (expect first request)
+2. Do not using cache at all. So, always pass `SDWebImageFromLoaderOnly` to load the metadata from network
+3. Using trick code, create `LPLinkView` with nil URL (important)
 
 + Objective-C
 
 ```objectivec
-NSURL *url1 = [NSURL URLWithString:@"https://www.apple.com/iphone/"];
-NSURL *url2 = [NSURL URLWithString:@"https://webkit.org/"];
-self.linkView = [[LPLinkView alloc] initWithURL:url1];
-self.imageView = [[UIImageView alloc] init];
-self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+NSURL *url = [NSURL URLWithString:@"https://www.apple.com/iphone/"];
+self.linkView = [[LPLinkView alloc] initWithURL:nil];
 [self.view addSubview:self.linkView];
-[self.view addSubview:self.imageView];
-
-[self.linkView sd_setImageWithURL:url1 placeholderImage:nil options:SDWebImageFromLoaderOnly completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+[self.linkView sd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
     NSLog(@"%@", @"LPLinkView metadata load success");
 }];
-[self.imageView sd_setImageWithURL:url2 completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-    NSLog(@"%@", @"UIImageView image load success");
-}];
 ```
+
+#### Using LPMetadata
 
 Note: You can always read and write the `LPMetadata` object on the associated `NSURL` object, to provide an exist metadata from your serialization solution, or update the metadata. If the provided URL have an associated metadata, we don't do extra query with [LPMetadataProvider](https://developer.apple.com/documentation/linkpresentation/lpmetadataprovider?language=objc).
 
 + Objective-C
 
 ```objective-c
+// Decoding a metadata from your serialization solution
+LPLinkMetadata *metadata = [NSKeyedUnarchiver unarchiveObjectWithFile:@"/path/to/metadata"];
+// Bind the associated metadata
+NSURL *urlWithMetadata = metadata.originalURL;
+urlWithMetadata.sd_linkMetadata = metadata;
+// Load image without query metadata again
+[imageView sd_setImageWithURL:urlWithMetadata];
+```
+
+```objective-c
+// If URL load success, the completion block's URL also contains the metadata
 LPLinkMetadata *metadata = imageURL.sd_linkMetadata;
 NSLog(@"[title]: %@\n[url]: %@\n[image]: %@", metadata.title, metadata.URL, metadata.imageProvider);
 ```
+
+Note: By default, if the image is cached, we do not send request to query new metadata. If you need to query the metadata as well, consider using SDWebImage's `SDWebImageRefreshCached` option. Or using `SDWebImageFromLoaderOnly` to avoid cache during query.
 
 Note: By default, we prefer to load the image only, which does not generate the image data. This can increase the loading speed. But however, you can also specify to generate the image data by using `SDWebImageContextLinkRequestImageData` context option.
 
@@ -108,6 +143,8 @@ open SDWebImageLinkPlugin.xcworkspace
 ```
 
 After the Xcode project was opened, click `Run` to build and run the demo.
+
+Tips: The iOS demo provide the both of two views' usage. Click `Switch View` to toggle between UIImageView/LPLinkView.
 
 ## Screenshot
 

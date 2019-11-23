@@ -72,12 +72,10 @@
             // LPLinkMetadata.imageProvider on iOS 13.1 contains bug which cause async query, and not compatible for cell-reusing. Radar FB7462933
             id<LPImageProtocol> linkImage = [[NSClassFromString(LPImageClass) alloc] initWithPlatformImage:image];
             [metadata setValue:linkImage forKey:@"image"];
-            imageURL.sd_linkMetadata = metadata;
         } else {
             metadata = [[LPLinkMetadata alloc] init];
             metadata.originalURL = url;
             metadata.URL = imageURL;
-            imageURL.sd_linkMetadata = metadata;
         }
         sself.metadata = metadata;
     } progress:progressBlock completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {

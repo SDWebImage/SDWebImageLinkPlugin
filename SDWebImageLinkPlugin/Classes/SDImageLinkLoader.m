@@ -77,7 +77,7 @@
     // Let's check wether input URL already have an associated LPLinkMetadata
     LPLinkMetadata *metadata = url.sd_linkMetadata;
     if (metadata) {
-        [self fetchImageWithMetadata:metadata operation:operation options:options context:context progress:progressBlock completed:completedBlock];
+        [self fetchImageWithMetadata:metadata operation:operation url:url options:options context:context progress:progressBlock completed:completedBlock];
     } else {
         LPMetadataProvider *provider = [[LPMetadataProvider alloc] init];
         provider.timeout = self.timeout;
@@ -91,7 +91,7 @@
             }
             // Associated the link metadata to URL, weak reference
             url.sd_linkMetadata = metadata;
-            [self fetchImageWithMetadata:metadata operation:operation options:options context:context progress:progressBlock completed:completedBlock];
+            [self fetchImageWithMetadata:metadata operation:operation url:url options:options context:context progress:progressBlock completed:completedBlock];
         }];
         operation.provider = provider;
     }
@@ -99,8 +99,7 @@
     return operation;
 }
 
-- (void)fetchImageWithMetadata:(LPLinkMetadata *)metadata operation:(SDImageLinkLoaderOperation *)operation options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
-    NSURL *url = metadata.originalURL;
+- (void)fetchImageWithMetadata:(LPLinkMetadata *)metadata operation:(SDImageLinkLoaderOperation *)operation url:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
     // Parse context option
     BOOL requestData = [context[SDWebImageContextLinkRequestImageData] boolValue];
     // Check image provider
