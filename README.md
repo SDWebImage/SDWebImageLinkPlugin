@@ -11,7 +11,7 @@
 ## What's for
 SDWebImageLinkPlugin is a plugin for [SDWebImage](https://github.com/rs/SDWebImage/) framework, which provide the image loading support for rich link URL, by using the [Link Presentation](https://developer.apple.com/documentation/linkpresentation) framework introduced in iOS 13/macOS 10.15.
 
-By using this plugin, it allows you to use your familiar View Category method from SDWebImage, to load rich link's poster image, with the URL or `LPMetadata`. And make it easy to use `LPLinkView` with cache support.
+By using this plugin, it allows you to use your familiar View Category method from SDWebImage, to load rich link's poster image, with the URL or `LPLinkMetadata`. And make it easy to use `LPLinkView` with cache support.
 
 See more about Link Presentation in [WWDC 262: Embedding and Sharing Visually Rich Links](https://developer.apple.com/videos/play/wwdc2019/262/)
 
@@ -91,7 +91,7 @@ self.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
 Important note on `LPLinkView`: Current iOS 13.0 contains bug that `LPLinkView` may not compatible with TableView/CollectionView cell-reusing. To workaround this issue, you can choose one of these below (one is OK):
 
-1. Cache the loaded `LPMetadata` by yourself, always ensure the `sd_linkMetadata` is not nil (expect first request)
+1. Cache the loaded `LPLinkMetadata` by yourself, always ensure the `sd_linkMetadata` is not nil (expect first request)
 2. Do not using cache at all. So, always pass `SDWebImageFromLoaderOnly` to load the metadata from network
 3. Using trick code, create `LPLinkView` with nil URL (important)
 
@@ -106,9 +106,9 @@ self.linkView = [[LPLinkView alloc] initWithURL:nil];
 }];
 ```
 
-#### Using LPMetadata
+#### Using LPLinkMetadata
 
-Note: You can always read and write the `LPMetadata` object on the associated `NSURL` object, to provide an exist metadata from your serialization solution, or update the metadata. If the provided URL have an associated metadata, we don't do extra query with [LPMetadataProvider](https://developer.apple.com/documentation/linkpresentation/lpmetadataprovider?language=objc).
+Note: You can always read and write the `LPLinkMetadata` object on the associated `NSURL` object, to provide an exist metadata from your serialization solution, or update the metadata. If the provided URL have an associated metadata, we don't do extra query with [LPMetadataProvider](https://developer.apple.com/documentation/linkpresentation/lpmetadataprovider?language=objc).
 
 + Objective-C
 
