@@ -65,16 +65,14 @@
         if (metadata) {
             // Already exist
         } else if (image) {
-            // Re-generate the metadata from local information
-            metadata = [[LPLinkMetadata alloc] init];
-            metadata.originalURL = url;
-            metadata.URL = imageURL;
             NSData *extendedData = image.sd_extendedData;
+            // Re-generate the metadata from local information
             if (extendedData) {
-                NSString *title = [[NSString alloc] initWithData:extendedData encoding:NSUTF8StringEncoding];
-                if (title.length > 0) {
-                    metadata.title = title;
-                }
+                metadata = [NSKeyedUnarchiver unarchivedObjectOfClass:LPLinkMetadata.class fromData:extendedData error:nil];
+            } else {
+                metadata = [[LPLinkMetadata alloc] init];
+                metadata.originalURL = url;
+                metadata.URL = imageURL;
             }
             // LPLinkMetadata.imageProvider on iOS 13.1 contains bug which cause async query, and not compatible for cell-reusing. Radar FB7462933
             id<LPImageProtocol> linkImage = [[NSClassFromString(LPImageClass) alloc] initWithPlatformImage:image];

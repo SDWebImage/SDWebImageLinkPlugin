@@ -155,8 +155,11 @@
         if (!image) {
             error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
         } else {
-            LPLinkMetadata *metadata = url.sd_linkMetadata;
-            image.sd_extendedData = [metadata.title dataUsingEncoding:NSUTF8StringEncoding];
+            // The original metadata contains image data and is large, we pick the metadata info only to avoid double cache of image
+            LPLinkMetadata *metadata = [self.class strippedMetadata:url.sd_linkMetadata];
+            // Save the metadata to extended data
+            NSData *extendedData = [NSKeyedArchiver archivedDataWithRootObject:metadata requiringSecureCoding:YES error:nil];
+            image.sd_extendedData = extendedData;
         }
         if (completedBlock) {
             dispatch_main_async_safe(^{
@@ -196,8 +199,11 @@
         if (!image) {
             error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
         } else {
-            LPLinkMetadata *metadata = url.sd_linkMetadata;
-            image.sd_extendedData = [metadata.title dataUsingEncoding:NSUTF8StringEncoding];
+            // The original metadata contains image data and is large, we pick the metadata info only to avoid double cache of image
+            LPLinkMetadata *metadata = [self.class strippedMetadata:url.sd_linkMetadata];
+            // Save the metadata to extended data
+            NSData *extendedData = [NSKeyedArchiver archivedDataWithRootObject:metadata requiringSecureCoding:YES error:nil];
+            image.sd_extendedData = extendedData;
         }
         if (completedBlock) {
             dispatch_main_async_safe(^{
@@ -218,6 +224,17 @@
                                 || error.code == SDWebImageErrorBadImageData);
     }
     return shouldBlockFailedURL;
+}
+
+#pragma mark - Util
++ (LPLinkMetadata *)strippedMetadata:(LPLinkMetadata *)originalMetadata {
+    NSCParameterAssert(originalMetadata);
+    LPLinkMetadata *metadata = [LPLinkMetadata new];
+    metadata.URL = originalMetadata.URL;
+    metadata.originalURL = originalMetadata.originalURL;
+    metadata.title = originalMetadata.title;
+    metadata.remoteVideoURL = originalMetadata.remoteVideoURL;
+    return metadata;
 }
 
 #pragma mark - KVO
