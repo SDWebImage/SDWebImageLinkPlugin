@@ -56,6 +56,7 @@
 		3253E1192387EAC5007ACAD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3253E11A2387EAC5007ACAD8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3253E11C2387EAC5007ACAD8 /* SDWebImageLinkPlugin_Example_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDWebImageLinkPlugin_Example_macOS.entitlements; sourceTree = "<group>"; };
+		3292A76B23898BA4001C7C82 /* SDWebImageLinkPlugin_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDWebImageLinkPlugin_Example.entitlements; sourceTree = "<group>"; };
 		54D9FFA9DF3619FBB4B10600 /* SDWebImageLinkPlugin.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SDWebImageLinkPlugin.podspec; path = ../SDWebImageLinkPlugin.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* SDWebImageLinkPlugin_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDWebImageLinkPlugin_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -154,6 +155,7 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
+				3292A76B23898BA4001C7C82 /* SDWebImageLinkPlugin_Example.entitlements */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for SDWebImageLinkPlugin */,
 				6003F5B5195388D20070C39A /* Tests */,
@@ -316,6 +318,9 @@
 				TargetAttributes = {
 					3253E10B2387EAC4007ACAD8 = {
 						CreatedOnToolsVersion = 11.2;
+						ProvisioningStyle = Automatic;
+					};
+					6003F589195388D20070C39A = {
 						ProvisioningStyle = Automatic;
 					};
 					6003F5AD195388D20070C39A = {
@@ -656,7 +661,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -697,7 +702,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -720,6 +725,9 @@
 			baseConfigurationReference = EEDD17A880BC7006D403F731 /* Pods-SDWebImageLinkPlugin_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SDWebImageLinkPlugin_Example.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SDWebImageLinkPlugin/SDWebImageLinkPlugin-Prefix.pch";
 				INFOPLIST_FILE = "SDWebImageLinkPlugin/SDWebImageLinkPlugin-Info.plist";
@@ -727,6 +735,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -737,6 +746,9 @@
 			baseConfigurationReference = 8ECF863B66511C1730DD7990 /* Pods-SDWebImageLinkPlugin_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SDWebImageLinkPlugin_Example.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SDWebImageLinkPlugin/SDWebImageLinkPlugin-Prefix.pch";
 				INFOPLIST_FILE = "SDWebImageLinkPlugin/SDWebImageLinkPlugin-Info.plist";
@@ -744,6 +756,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};

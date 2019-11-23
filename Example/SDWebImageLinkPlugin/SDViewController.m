@@ -108,6 +108,11 @@
     [self.tableView reloadData];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.tableView.frame = self.view.bounds;
+}
+
 - (void)switchView {
     self.useLinkView = !self.useLinkView;
     [self.tableView reloadData];
