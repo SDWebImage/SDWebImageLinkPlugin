@@ -50,12 +50,13 @@
                    context:(nullable SDWebImageContext *)context
                   progress:(nullable SDImageLoaderProgressBlock)progressBlock
                  completed:(nullable SDExternalCompletionBlock)completedBlock {
+    
     __weak typeof(self) wself = self;
     [self sd_internalSetImageWithURL:url placeholderImage:placeholder options:options context:context setImageBlock:^(UIImage * _Nullable image, NSData * _Nullable imageData, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         __strong typeof(self) sself = wself;
         LPLinkMetadata *metadata = imageURL.sd_linkMetadata;
         if (metadata) {
-            sself.metadata = metadata;
+            // Already exist
         } else if (image) {
             // Re-generate the metadata from local information
             metadata = [[LPLinkMetadata alloc] init];
@@ -63,8 +64,13 @@
             metadata.URL = imageURL;
             metadata.imageProvider = [[NSItemProvider alloc] initWithObject:image];
             imageURL.sd_linkMetadata = metadata;
-            sself.metadata = metadata;
+        } else {
+            metadata = [[LPLinkMetadata alloc] init];
+            metadata.originalURL = url;
+            metadata.URL = imageURL;
+            imageURL.sd_linkMetadata = metadata;
         }
+        sself.metadata = metadata;
     } progress:progressBlock completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
         if (completedBlock) {
             completedBlock(image, error, cacheType, imageURL);

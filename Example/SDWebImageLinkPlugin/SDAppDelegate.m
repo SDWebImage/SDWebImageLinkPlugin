@@ -7,12 +7,16 @@
 //
 
 #import "SDAppDelegate.h"
+#import <SDWebImage/SDWebImage.h>
+#import <SDWebImageLinkPlugin/SDWebImageLinkPlugin.h>
 
 @implementation SDAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [SDImageLoadersManager.sharedManager addLoader:SDImageLinkLoader.sharedLoader];
+    SDWebImageManager.defaultImageLoader = SDImageLoadersManager.sharedManager;
     return YES;
 }
 
