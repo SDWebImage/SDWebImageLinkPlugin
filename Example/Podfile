@@ -6,8 +6,7 @@ target 'SDWebImageLinkPlugin_Example' do
 
   target 'SDWebImageLinkPlugin_Tests' do
     inherit! :search_paths
-
-    
+    pod 'Expecta'
   end
 end
 

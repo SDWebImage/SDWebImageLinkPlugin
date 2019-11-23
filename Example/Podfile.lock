@@ -1,4 +1,5 @@
 PODS:
+  - Expecta (1.0.6)
   - SDWebImage (5.3.1):
     - SDWebImage/Core (= 5.3.1)
   - SDWebImage/Core (5.3.1)
@@ -6,10 +7,12 @@ PODS:
     - SDWebImage (~> 5.0)
 
 DEPENDENCIES:
+  - Expecta
   - SDWebImageLinkPlugin (from `../`)
 
 SPEC REPOS:
   trunk:
+    - Expecta
     - SDWebImage
 
 EXTERNAL SOURCES:
@@ -17,9 +20,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
+  Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
   SDWebImage: 7137d57385fb632129838c1e6ab9528a22c666cc
-  SDWebImageLinkPlugin: ea390a828e8c0da400a4d113fbef334fab2b26d1
+  SDWebImageLinkPlugin: f77eb1f3ef322a2cb331ecf62cf78444529de597
 
-PODFILE CHECKSUM: 74a62a3e72a34ed61a73510a4231db8d0408fcbe
+PODFILE CHECKSUM: 74e009387008b3c98728da0575236586673f1fec
 
 COCOAPODS: 1.8.4

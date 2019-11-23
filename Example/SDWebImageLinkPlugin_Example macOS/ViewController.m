@@ -22,8 +22,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [SDImageLoadersManager.sharedManager addLoader:SDImageLinkLoader.sharedLoader];
-    SDWebImageManager.defaultImageLoader = SDImageLoadersManager.sharedManager;
     
     NSURL *url1 = [NSURL URLWithString:@"https://www.apple.com/mac/"];
     NSURL *url2 = [NSURL URLWithString:@"https://webkit.org/"];

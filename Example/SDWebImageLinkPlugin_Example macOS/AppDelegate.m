@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <SDWebImage/SDWebImage.h>
+#import <SDWebImageLinkPlugin/SDWebImageLinkPlugin.h>
 
 @interface AppDelegate ()
 
@@ -16,6 +18,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    [SDImageLoadersManager.sharedManager addLoader:SDImageLinkLoader.sharedLoader];
+    SDWebImageManager.defaultImageLoader = SDImageLoadersManager.sharedManager;
 }
 
 
