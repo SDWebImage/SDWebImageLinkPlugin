@@ -69,6 +69,13 @@
             metadata = [[LPLinkMetadata alloc] init];
             metadata.originalURL = url;
             metadata.URL = imageURL;
+            NSData *extendedData = image.sd_extendedData;
+            if (extendedData) {
+                NSString *title = [[NSString alloc] initWithData:extendedData encoding:NSUTF8StringEncoding];
+                if (title.length > 0) {
+                    metadata.title = title;
+                }
+            }
             // LPLinkMetadata.imageProvider on iOS 13.1 contains bug which cause async query, and not compatible for cell-reusing. Radar FB7462933
             id<LPImageProtocol> linkImage = [[NSClassFromString(LPImageClass) alloc] initWithPlatformImage:image];
             [metadata setValue:linkImage forKey:@"image"];

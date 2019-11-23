@@ -154,6 +154,9 @@
         UIImage *image = SDImageLoaderDecodeImageData(data, url, options, context);
         if (!image) {
             error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
+        } else {
+            LPLinkMetadata *metadata = url.sd_linkMetadata;
+            image.sd_extendedData = [metadata.title dataUsingEncoding:NSUTF8StringEncoding];
         }
         if (completedBlock) {
             dispatch_main_async_safe(^{
@@ -192,6 +195,9 @@
         NSAssert([image isKindOfClass:UIImage.class], @"NSItemProvider loaded object should be UIImage class");
         if (!image) {
             error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
+        } else {
+            LPLinkMetadata *metadata = url.sd_linkMetadata;
+            image.sd_extendedData = [metadata.title dataUsingEncoding:NSUTF8StringEncoding];
         }
         if (completedBlock) {
             dispatch_main_async_safe(^{

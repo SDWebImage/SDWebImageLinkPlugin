@@ -1,29 +1,31 @@
 PODS:
   - Expecta (1.0.6)
-  - SDWebImage (5.3.1):
-    - SDWebImage/Core (= 5.3.1)
-  - SDWebImage/Core (5.3.1)
+  - SDWebImage (5.3.2):
+    - SDWebImage/Core (= 5.3.2)
+  - SDWebImage/Core (5.3.2)
   - SDWebImageLinkPlugin (0.1.0):
     - SDWebImage (~> 5.0)
 
 DEPENDENCIES:
   - Expecta
+  - SDWebImage (from `/Users/lizhuoli/Documents/GitHub/sdwebImage`)
   - SDWebImageLinkPlugin (from `../`)
 
 SPEC REPOS:
   trunk:
     - Expecta
-    - SDWebImage
 
 EXTERNAL SOURCES:
+  SDWebImage:
+    :path: "/Users/lizhuoli/Documents/GitHub/sdwebImage"
   SDWebImageLinkPlugin:
     :path: "../"
 
 SPEC CHECKSUMS:
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
-  SDWebImage: 7137d57385fb632129838c1e6ab9528a22c666cc
+  SDWebImage: 6ac2eb96571bff96ecde31a987172c5934a0eb7d
   SDWebImageLinkPlugin: f77eb1f3ef322a2cb331ecf62cf78444529de597
 
-PODFILE CHECKSUM: 74e009387008b3c98728da0575236586673f1fec
+PODFILE CHECKSUM: b080bcae01315fea0c82763be9711485ae91d032
 
 COCOAPODS: 1.8.4

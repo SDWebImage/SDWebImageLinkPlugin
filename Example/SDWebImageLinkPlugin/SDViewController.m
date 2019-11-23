@@ -87,7 +87,7 @@
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(switchView)];
-    self.useLinkView = NO;
+    self.useLinkView = YES;
     self.objects = [NSArray arrayWithObjects:
                     @"https://www.apple.com/",
                     @"https://www.apple.com/music/",
