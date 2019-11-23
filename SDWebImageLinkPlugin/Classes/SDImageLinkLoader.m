@@ -16,7 +16,19 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #endif
 
-@interface LPMetadataProvider (SDWebImageOperation) <SDWebImageOperation>
+@interface SDImageLinkLoaderOperation : NSObject <SDWebImageOperation>
+
+@property (nonatomic, strong) LPMetadataProvider *provider;
+@property (nonatomic, getter=isCancelled) BOOL cancelled;
+
+@end
+
+@implementation SDImageLinkLoaderOperation
+
+- (void)cancel {
+    [self.provider cancel];
+    self.cancelled = YES;
+}
 
 @end
 
@@ -61,11 +73,11 @@
 }
 
 - (id<SDWebImageOperation>)requestImageWithURL:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
+    SDImageLinkLoaderOperation *operation = [SDImageLinkLoaderOperation new];
     // Let's check wether input URL already have an associated LPLinkMetadata
     LPLinkMetadata *metadata = url.sd_linkMetadata;
     if (metadata) {
-        [self fetchImageWithMetadata:metadata options:options context:context progress:progressBlock completed:completedBlock];
-        return nil;
+        [self fetchImageWithMetadata:metadata operation:operation options:options context:context progress:progressBlock completed:completedBlock];
     } else {
         LPMetadataProvider *provider = [[LPMetadataProvider alloc] init];
         provider.timeout = self.timeout;
@@ -79,13 +91,15 @@
             }
             // Associated the link metadata to URL, weak reference
             url.sd_linkMetadata = metadata;
-            [self fetchImageWithMetadata:metadata options:options context:context progress:progressBlock completed:completedBlock];
+            [self fetchImageWithMetadata:metadata operation:operation options:options context:context progress:progressBlock completed:completedBlock];
         }];
-        return provider;
+        operation.provider = provider;
     }
+    
+    return operation;
 }
 
-- (void)fetchImageWithMetadata:(LPLinkMetadata *)metadata options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
+- (void)fetchImageWithMetadata:(LPLinkMetadata *)metadata operation:(SDImageLinkLoaderOperation *)operation options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
     NSURL *url = metadata.originalURL;
     // Parse context option
     BOOL requestData = [context[SDWebImageContextLinkRequestImageData] boolValue];
@@ -108,15 +122,15 @@
     }
     if (requestData) {
         // Request the image data and decode
-        [self fetchImageDataWithProvider:imageProvider url:url options:options context:context progress:progressBlock completed:completedBlock];
+        [self fetchImageDataWithProvider:imageProvider operation:operation url:url options:options context:context progress:progressBlock completed:completedBlock];
     } else {
         // Only request the image object, faster
-        [self fetchImageWithProvider:imageProvider url:url progress:progressBlock completed:completedBlock];
+        [self fetchImageWithProvider:imageProvider operation:operation url:url progress:progressBlock completed:completedBlock];
     }
 }
 
 // Fetch image and data with `loadDataRepresentationForTypeIdentifier` API
-- (void)fetchImageDataWithProvider:(NSItemProvider *)imageProvider url:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
+- (void)fetchImageDataWithProvider:(NSItemProvider *)imageProvider operation:(SDImageLinkLoaderOperation *)operation url:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
     SDImageLinkLoaderContext *loaderContext = [SDImageLinkLoaderContext new];
     loaderContext.url = url;
     loaderContext.progressBlock = progressBlock;
@@ -124,6 +138,10 @@
     progress = [imageProvider loadDataRepresentationForTypeIdentifier:(__bridge NSString *)kUTTypeImage completionHandler:^(NSData * _Nullable data, NSError * _Nullable error) {
         if (progressBlock && progress) {
             [progress removeObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) context:(__bridge void *)(loaderContext)];
+        }
+        if (operation.isCancelled) {
+            // Cancelled
+            error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:nil];
         }
         if (error) {
             if (completedBlock) {
@@ -151,7 +169,7 @@
 }
 
 // Fetch image with `loadObjectOfClass` API
-- (void)fetchImageWithProvider:(NSItemProvider *)imageProvider url:(NSURL *)url progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
+- (void)fetchImageWithProvider:(NSItemProvider *)imageProvider operation:(SDImageLinkLoaderOperation *)operation url:(NSURL *)url progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
     SDImageLinkLoaderContext *loaderContext = [SDImageLinkLoaderContext new];
     loaderContext.url = url;
     loaderContext.progressBlock = progressBlock;
@@ -159,6 +177,10 @@
     progress = [imageProvider loadObjectOfClass:UIImage.class completionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
         if (progressBlock && progress) {
             [progress removeObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) context:(__bridge void *)(loaderContext)];
+        }
+        if (operation.isCancelled) {
+            // Cancelled
+            error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:nil];
         }
         if (error) {
             if (completedBlock) {

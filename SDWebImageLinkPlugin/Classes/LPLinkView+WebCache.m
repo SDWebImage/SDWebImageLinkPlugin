@@ -10,6 +10,13 @@
 #import "NSURL+SDWebImageLinkPlugin.h"
 #import "NSImage+SDWebImageLinkPlugin.h"
 
+#define LPImageClass @"LPImage"
+@protocol LPImageProtocol <NSObject>
+
+- (instancetype)initWithPlatformImage:(UIImage *)image;
+
+@end
+
 @implementation LPLinkView (WebCache)
 
 - (void)sd_setImageWithURL:(nullable NSURL *)url {
@@ -62,7 +69,9 @@
             metadata = [[LPLinkMetadata alloc] init];
             metadata.originalURL = url;
             metadata.URL = imageURL;
-            metadata.imageProvider = [[NSItemProvider alloc] initWithObject:image];
+            // LPLinkMetadata.imageProvider on iOS 13.1 contains bug which cause async query, and not compatible for cell-reusing. Radar FB7462933
+            id<LPImageProtocol> linkImage = [[NSClassFromString(LPImageClass) alloc] initWithPlatformImage:image];
+            [metadata setValue:linkImage forKey:@"image"];
             imageURL.sd_linkMetadata = metadata;
         } else {
             metadata = [[LPLinkMetadata alloc] init];

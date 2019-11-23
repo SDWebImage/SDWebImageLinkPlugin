@@ -19,9 +19,10 @@
 
 @implementation LinkTableViewCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier url:(NSURL *)url {
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        _linkView = [[LPLinkView alloc] initWithURL:url];
+        NSURL *url = nil;
+        _linkView = [[LPLinkView alloc] initWithURL:url]; // We must pass nil here, or will cause Cell-reusing issues on iOS 13.1.
         [self.contentView addSubview:_linkView];
     }
     return self;
@@ -43,7 +44,7 @@
 
 @implementation ImageTableViewCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier url:(NSURL *)url {
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _customImageView = [[UIImageView alloc] init];
         _customImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -134,12 +135,12 @@
     
     if (self.useLinkView) {
         if (![cell isKindOfClass:LinkTableViewCell.class]) {
-            cell = [[LinkTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier url:url];
+            cell = [[LinkTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         [((LinkTableViewCell *)cell).linkView sd_setImageWithURL:url];
     } else {
         if (![cell isKindOfClass:ImageTableViewCell.class]) {
-            cell = [[ImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier url:url];
+            cell = [[ImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         ((ImageTableViewCell *)cell).customTextLabel.text = url.host;
         [((ImageTableViewCell *)cell).customImageView sd_setImageWithURL:url];
