@@ -10,7 +10,6 @@
 #import "SDWebImageLinkDefine.h"
 #import "SDWebImageLinkError.h"
 #import "NSImage+SDWebImageLinkPlugin.h"
-#import "NSURL+SDWebImageLinkPlugin.h"
 #import <LinkPresentation/LinkPresentation.h>
 #if SD_UIKIT
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -75,7 +74,7 @@
 - (id<SDWebImageOperation>)requestImageWithURL:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
     SDImageLinkLoaderOperation *operation = [SDImageLinkLoaderOperation new];
     // Let's check wether input URL already have an associated LPLinkMetadata
-    LPLinkMetadata *metadata = url.sd_linkMetadata;
+    LPLinkMetadata *metadata = context[SDWebImageContextLinkMetadata];
     if (metadata) {
         [self fetchImageWithMetadata:metadata operation:operation url:url options:options context:context progress:progressBlock completed:completedBlock];
     } else {
@@ -85,12 +84,12 @@
         [provider startFetchingMetadataForURL:url completionHandler:^(LPLinkMetadata * _Nullable metadata, NSError * _Nullable error) {
             if (error) {
                 if (completedBlock) {
-                    completedBlock(nil, nil, error, YES);
+                    dispatch_main_async_safe(^{
+                        completedBlock(nil, nil, error, YES);
+                    });
                 }
                 return;
             }
-            // Associated the link metadata to URL, weak reference
-            url.sd_linkMetadata = metadata;
             [self fetchImageWithMetadata:metadata operation:operation url:url options:options context:context progress:progressBlock completed:completedBlock];
         }];
         operation.provider = provider;
@@ -121,15 +120,15 @@
     }
     if (requestData) {
         // Request the image data and decode
-        [self fetchImageDataWithProvider:imageProvider operation:operation url:url options:options context:context progress:progressBlock completed:completedBlock];
+        [self fetchImageDataWithProvider:imageProvider metadata:metadata operation:operation url:url options:options context:context progress:progressBlock completed:completedBlock];
     } else {
         // Only request the image object, faster
-        [self fetchImageWithProvider:imageProvider operation:operation url:url progress:progressBlock completed:completedBlock];
+        [self fetchImageWithProvider:imageProvider metadata:metadata operation:operation url:url progress:progressBlock completed:completedBlock];
     }
 }
 
 // Fetch image and data with `loadDataRepresentationForTypeIdentifier` API
-- (void)fetchImageDataWithProvider:(NSItemProvider *)imageProvider operation:(SDImageLinkLoaderOperation *)operation url:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
+- (void)fetchImageDataWithProvider:(NSItemProvider *)imageProvider metadata:(LPLinkMetadata *)metadata operation:(SDImageLinkLoaderOperation *)operation url:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
     SDImageLinkLoaderContext *loaderContext = [SDImageLinkLoaderContext new];
     loaderContext.url = url;
     loaderContext.progressBlock = progressBlock;
@@ -156,9 +155,9 @@
             error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
         } else {
             // The original metadata contains image data and is large, we pick the metadata info only to avoid double cache of image
-            LPLinkMetadata *metadata = [self.class strippedMetadata:url.sd_linkMetadata];
+            LPLinkMetadata *strippedMetadata = [self.class strippedMetadata:metadata];
             // Save the metadata to extended data
-            image.sd_extendedObject = metadata;
+            image.sd_extendedObject = strippedMetadata;
         }
         if (completedBlock) {
             dispatch_main_async_safe(^{
@@ -173,7 +172,7 @@
 }
 
 // Fetch image with `loadObjectOfClass` API
-- (void)fetchImageWithProvider:(NSItemProvider *)imageProvider operation:(SDImageLinkLoaderOperation *)operation url:(NSURL *)url progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
+- (void)fetchImageWithProvider:(NSItemProvider *)imageProvider metadata:(LPLinkMetadata *)metadata operation:(SDImageLinkLoaderOperation *)operation url:(NSURL *)url progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDImageLoaderCompletedBlock)completedBlock {
     SDImageLinkLoaderContext *loaderContext = [SDImageLinkLoaderContext new];
     loaderContext.url = url;
     loaderContext.progressBlock = progressBlock;
@@ -199,9 +198,9 @@
             error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
         } else {
             // The original metadata contains image data and is large, we pick the metadata info only to avoid double cache of image
-            LPLinkMetadata *metadata = [self.class strippedMetadata:url.sd_linkMetadata];
+            LPLinkMetadata *strippedMetadata = [self.class strippedMetadata:metadata];
             // Save the metadata to extended data
-            image.sd_extendedObject = metadata;
+            image.sd_extendedObject = strippedMetadata;
         }
         if (completedBlock) {
             dispatch_main_async_safe(^{

@@ -8,4 +8,5 @@
 
 #import "SDWebImageLinkDefine.h"
 
+SDWebImageContextOption _Nonnull const SDWebImageContextLinkMetadata = @"linkMetadata";
 SDWebImageContextOption _Nonnull const SDWebImageContextLinkRequestImageData = @"linkRequestImageData";

@@ -7,8 +7,7 @@
  */
 
 #import "LPLinkView+WebCache.h"
-#import "NSURL+SDWebImageLinkPlugin.h"
-#import "NSImage+SDWebImageLinkPlugin.h"
+#import "SDWebImageLinkDefine.h"
 
 #define LPImageClass @"LPImage"
 @protocol LPImageProtocol <NSObject>
@@ -61,7 +60,7 @@
     __weak typeof(self) wself = self;
     [self sd_internalSetImageWithURL:url placeholderImage:placeholder options:options context:context setImageBlock:^(UIImage * _Nullable image, NSData * _Nullable imageData, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         __strong typeof(self) sself = wself;
-        LPLinkMetadata *metadata = imageURL.sd_linkMetadata;
+        LPLinkMetadata *metadata = context[SDWebImageContextLinkMetadata];
         if (metadata) {
             // Already exist
         } else if (image) {
