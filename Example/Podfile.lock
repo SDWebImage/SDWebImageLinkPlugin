@@ -24,7 +24,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SDWebImage:
-    :commit: 46b0c4bae83103209431b2ec1eddae718a55d6df
+    :commit: 9f470954c4c2edfc9ddbbe0758458f61dadba837
     :git: https://github.com/dreampiggy/SDWebImage.git
 
 SPEC CHECKSUMS:

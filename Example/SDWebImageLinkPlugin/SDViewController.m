@@ -156,9 +156,9 @@
         ((ImageTableViewCell *)cell).hostLabel.text = url.host;
         [((ImageTableViewCell *)cell).customImageView sd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (image) {
-                id extendedObject = image.sd_extendedObject;
-                if ([extendedObject isKindOfClass:LPLinkMetadata.class]) {
-                    ((ImageTableViewCell *)cell).titleLabel.text = ((LPLinkMetadata *)extendedObject).title;
+                if ([image.sd_extendedObject isKindOfClass:LPLinkMetadata.class]) {
+                    LPLinkMetadata *metadata = (LPLinkMetadata *)image.sd_extendedObject;
+                    ((ImageTableViewCell *)cell).titleLabel.text = metadata.title;
                 }
             }
         }];
