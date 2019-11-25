@@ -8,7 +8,7 @@ PODS:
 
 DEPENDENCIES:
   - Expecta
-  - SDWebImage (from `/Users/lizhuoli/Documents/GitHub/sdwebImage`)
+  - SDWebImage (from `https://github.com/dreampiggy/SDWebImage.git`, branch `feature_extended_metadata_disk_cache`)
   - SDWebImageLinkPlugin (from `../`)
 
 SPEC REPOS:
@@ -17,15 +17,21 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   SDWebImage:
-    :path: "/Users/lizhuoli/Documents/GitHub/sdwebImage"
+    :branch: feature_extended_metadata_disk_cache
+    :git: https://github.com/dreampiggy/SDWebImage.git
   SDWebImageLinkPlugin:
     :path: "../"
+
+CHECKOUT OPTIONS:
+  SDWebImage:
+    :commit: 46b0c4bae83103209431b2ec1eddae718a55d6df
+    :git: https://github.com/dreampiggy/SDWebImage.git
 
 SPEC CHECKSUMS:
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
   SDWebImage: 6ac2eb96571bff96ecde31a987172c5934a0eb7d
   SDWebImageLinkPlugin: f77eb1f3ef322a2cb331ecf62cf78444529de597
 
-PODFILE CHECKSUM: b080bcae01315fea0c82763be9711485ae91d032
+PODFILE CHECKSUM: 41395b7a314d9ee9da20f929cbea78bfaced4aef
 
 COCOAPODS: 1.8.4

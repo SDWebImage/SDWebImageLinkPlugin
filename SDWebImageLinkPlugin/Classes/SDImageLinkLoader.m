@@ -158,8 +158,7 @@
             // The original metadata contains image data and is large, we pick the metadata info only to avoid double cache of image
             LPLinkMetadata *metadata = [self.class strippedMetadata:url.sd_linkMetadata];
             // Save the metadata to extended data
-            NSData *extendedData = [NSKeyedArchiver archivedDataWithRootObject:metadata requiringSecureCoding:YES error:nil];
-            image.sd_extendedData = extendedData;
+            image.sd_extendedObject = metadata;
         }
         if (completedBlock) {
             dispatch_main_async_safe(^{
@@ -202,8 +201,7 @@
             // The original metadata contains image data and is large, we pick the metadata info only to avoid double cache of image
             LPLinkMetadata *metadata = [self.class strippedMetadata:url.sd_linkMetadata];
             // Save the metadata to extended data
-            NSData *extendedData = [NSKeyedArchiver archivedDataWithRootObject:metadata requiringSecureCoding:YES error:nil];
-            image.sd_extendedData = extendedData;
+            image.sd_extendedObject = metadata;
         }
         if (completedBlock) {
             dispatch_main_async_safe(^{

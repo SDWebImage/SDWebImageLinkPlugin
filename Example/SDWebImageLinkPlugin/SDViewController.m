@@ -37,7 +37,8 @@
 
 @interface ImageTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *customTextLabel;
+@property (nonatomic, strong) UILabel *hostLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *customImageView;
 
 @end
@@ -51,17 +52,22 @@
         _customImageView.clipsToBounds = YES;
         _customImageView.layer.cornerRadius = 10;
         [self.contentView addSubview:_customImageView];
-        _customTextLabel = [[UILabel alloc] init];
-        [self.contentView addSubview:_customTextLabel];
+        _hostLabel = [[UILabel alloc] init];
+        _hostLabel.font = [UIFont systemFontOfSize:12];
+        [self.contentView addSubview:_hostLabel];
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightBold];
+        [self.contentView addSubview:_titleLabel];
     }
     return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.customImageView.frame = CGRectInset(self.bounds, 20, 20);
-    [self.customTextLabel sizeToFit];
-    self.customTextLabel.frame = CGRectMake(20, self.bounds.size.height - 20, self.bounds.size.width - 40, self.customTextLabel.frame.size.height);
+    self.customImageView.frame = CGRectInset(self.bounds, 20, 40);
+    self.hostLabel.frame = CGRectMake(30, self.bounds.size.height - 20, self.bounds.size.width - 2 * 30, 20);
+    self.titleLabel.frame = CGRectMake(30, self.bounds.size.height - 40, self.bounds.size.width - 2 * 30, 20);
+    
 }
 
 @end
@@ -147,8 +153,15 @@
         if (![cell isKindOfClass:ImageTableViewCell.class]) {
             cell = [[ImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
-        ((ImageTableViewCell *)cell).customTextLabel.text = url.host;
-        [((ImageTableViewCell *)cell).customImageView sd_setImageWithURL:url];
+        ((ImageTableViewCell *)cell).hostLabel.text = url.host;
+        [((ImageTableViewCell *)cell).customImageView sd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (image) {
+                id extendedObject = image.sd_extendedObject;
+                if ([extendedObject isKindOfClass:LPLinkMetadata.class]) {
+                    ((ImageTableViewCell *)cell).titleLabel.text = ((LPLinkMetadata *)extendedObject).title;
+                }
+            }
+        }];
     }
     
     return cell;

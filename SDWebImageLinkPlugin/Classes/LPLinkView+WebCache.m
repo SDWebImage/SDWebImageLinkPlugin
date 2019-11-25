@@ -65,10 +65,10 @@
         if (metadata) {
             // Already exist
         } else if (image) {
-            NSData *extendedData = image.sd_extendedData;
+            id extendedObject = image.sd_extendedObject;
             // Re-generate the metadata from local information
-            if (extendedData) {
-                metadata = [NSKeyedUnarchiver unarchivedObjectOfClass:LPLinkMetadata.class fromData:extendedData error:nil];
+            if ([extendedObject isKindOfClass:LPLinkMetadata.class]) {
+                metadata = extendedObject;
             } else {
                 metadata = [[LPLinkMetadata alloc] init];
                 metadata.originalURL = url;
