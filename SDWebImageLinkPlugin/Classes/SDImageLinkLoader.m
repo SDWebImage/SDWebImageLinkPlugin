@@ -247,8 +247,6 @@
             if (progressBlock) {
                 progressBlock(progress.completedUnitCount, progress.totalUnitCount, url);
             }
-        } else {
-            [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
