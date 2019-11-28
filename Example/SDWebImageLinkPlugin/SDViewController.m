@@ -148,17 +148,21 @@
         if (![cell isKindOfClass:LinkTableViewCell.class]) {
             cell = [[LinkTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
+        ((LinkTableViewCell *)cell).linkView.sd_imageTransition = SDWebImageTransition.fadeTransition;
         [((LinkTableViewCell *)cell).linkView sd_setImageWithURL:url];
     } else {
         if (![cell isKindOfClass:ImageTableViewCell.class]) {
             cell = [[ImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         ((ImageTableViewCell *)cell).hostLabel.text = url.host;
+        ((ImageTableViewCell *)cell).titleLabel.text = nil;
+        ((ImageTableViewCell *)cell).customImageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
         [((ImageTableViewCell *)cell).customImageView sd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (image) {
                 if ([image.sd_extendedObject isKindOfClass:LPLinkMetadata.class]) {
                     LPLinkMetadata *metadata = (LPLinkMetadata *)image.sd_extendedObject;
                     ((ImageTableViewCell *)cell).titleLabel.text = metadata.title;
+                    ((ImageTableViewCell *)cell).hostLabel.text = metadata.URL.host;
                 }
             }
         }];
