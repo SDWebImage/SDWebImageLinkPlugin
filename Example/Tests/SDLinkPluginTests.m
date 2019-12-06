@@ -50,12 +50,13 @@
                           context:nil
                          progress:nil
                         completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                            LPLinkMetadata *metadata = imageURL.sd_linkMetadata;
+                            LPLinkMetadata *metadata = (LPLinkMetadata *)image.sd_extendedObject;
                             expect(metadata).toNot.beNil();
                             expect(image).toNot.beNil();
                             expect(error).to.beNil();
                             expect(linkURL).to.equal(imageURL);
                             expect(metadata.originalURL).equal(linkURL);
+                            expect(metadata.title).notTo.beNil();
                             [expectation fulfill];
                         }];
     [self waitForExpectationsWithTimeout:kAsyncTestTimeout handler:nil];
