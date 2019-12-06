@@ -21,8 +21,8 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        NSURL *url = nil;
-        _linkView = [[LPLinkView alloc] initWithURL:url]; // We must pass nil here, or will cause Cell-reusing issues on iOS 13.1.
+        LPLinkMetadata *metadata = [LPLinkMetadata new]; // We must pass empty metadata here, or will cause Cell-reusing issues on iOS 13.1.
+        _linkView = [[LPLinkView alloc] initWithMetadata:metadata];
         [self.contentView addSubview:_linkView];
     }
     return self;
@@ -37,7 +37,8 @@
 
 @interface ImageTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *customTextLabel;
+@property (nonatomic, strong) UILabel *hostLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *customImageView;
 
 @end
@@ -51,17 +52,22 @@
         _customImageView.clipsToBounds = YES;
         _customImageView.layer.cornerRadius = 10;
         [self.contentView addSubview:_customImageView];
-        _customTextLabel = [[UILabel alloc] init];
-        [self.contentView addSubview:_customTextLabel];
+        _hostLabel = [[UILabel alloc] init];
+        _hostLabel.font = [UIFont systemFontOfSize:12];
+        [self.contentView addSubview:_hostLabel];
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightBold];
+        [self.contentView addSubview:_titleLabel];
     }
     return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.customImageView.frame = CGRectInset(self.bounds, 20, 20);
-    [self.customTextLabel sizeToFit];
-    self.customTextLabel.frame = CGRectMake(20, self.bounds.size.height - 20, self.bounds.size.width - 40, self.customTextLabel.frame.size.height);
+    self.customImageView.frame = CGRectInset(self.bounds, 20, 40);
+    self.hostLabel.frame = CGRectMake(30, self.bounds.size.height - 20, self.bounds.size.width - 2 * 30, 20);
+    self.titleLabel.frame = CGRectMake(30, self.bounds.size.height - 40, self.bounds.size.width - 2 * 30, 20);
+    
 }
 
 @end
@@ -87,7 +93,7 @@
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(switchView)];
-    self.useLinkView = NO;
+    self.useLinkView = YES;
     self.objects = [NSArray arrayWithObjects:
                     @"https://www.apple.com/",
                     @"https://www.apple.com/music/",
@@ -142,13 +148,24 @@
         if (![cell isKindOfClass:LinkTableViewCell.class]) {
             cell = [[LinkTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
+        ((LinkTableViewCell *)cell).linkView.sd_imageTransition = SDWebImageTransition.fadeTransition;
         [((LinkTableViewCell *)cell).linkView sd_setImageWithURL:url];
     } else {
         if (![cell isKindOfClass:ImageTableViewCell.class]) {
             cell = [[ImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
-        ((ImageTableViewCell *)cell).customTextLabel.text = url.host;
-        [((ImageTableViewCell *)cell).customImageView sd_setImageWithURL:url];
+        ((ImageTableViewCell *)cell).hostLabel.text = url.host;
+        ((ImageTableViewCell *)cell).titleLabel.text = nil;
+        ((ImageTableViewCell *)cell).customImageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
+        [((ImageTableViewCell *)cell).customImageView sd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (image) {
+                if ([image.sd_extendedObject isKindOfClass:LPLinkMetadata.class]) {
+                    LPLinkMetadata *metadata = (LPLinkMetadata *)image.sd_extendedObject;
+                    ((ImageTableViewCell *)cell).titleLabel.text = metadata.title;
+                    ((ImageTableViewCell *)cell).hostLabel.text = metadata.URL.host;
+                }
+            }
+        }];
     }
     
     return cell;

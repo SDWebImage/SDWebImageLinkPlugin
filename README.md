@@ -83,7 +83,9 @@ self.imageView = [[UIImageView alloc] init];
 self.imageView.contentMode = UIViewContentModeScaleAspectFit;
 [self.view addSubview:self.imageView];
 [self.imageView sd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-    NSLog(@"%@", @"UIImageView image load success");
+    if (image && [image.sd_extendedObject isKindOfClass:LPLinkMetadata.class]) {
+        NSLog(@"%@", @"UIImageView metadata load success");
+    }
 }];
 ```
 
@@ -91,9 +93,8 @@ self.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
 Important note on `LPLinkView`: Current iOS 13.0 contains bug that `LPLinkView` may not compatible with TableView/CollectionView cell-reusing. To workaround this issue, you can choose one of these below (one is OK):
 
-1. Cache the loaded `LPLinkMetadata` by yourself, always ensure the `sd_linkMetadata` is not nil (expect first request)
-2. Do not using cache at all. So, always pass `SDWebImageFromLoaderOnly` to load the metadata from network
-3. Using trick code, create `LPLinkView` with nil URL (important)
+1. Do not using cache at all. So, always pass `SDWebImageFromLoaderOnly` to load the metadata from network
+2. Using trick code, create `LPLinkView` with empty `LPLinkMetadata`, or nil URL (important).
 
 + Objective-C
 
@@ -102,30 +103,25 @@ NSURL *url = [NSURL URLWithString:@"https://www.apple.com/iphone/"];
 self.linkView = [[LPLinkView alloc] initWithURL:nil];
 [self.view addSubview:self.linkView];
 [self.linkView sd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-    NSLog(@"%@", @"LPLinkView metadata load success");
+    if (image && [image.sd_extendedObject isKindOfClass:LPLinkMetadata.class]) {
+        NSLog(@"%@", @"LPLinkView metadata load success");
+    }
 }];
 ```
 
 #### Using LPLinkMetadata
 
-Note: You can always read and write the `LPLinkMetadata` object on the associated `NSURL` object, to provide an exist metadata from your serialization solution, or update the metadata. If the provided URL have an associated metadata, we don't do extra query with [LPMetadataProvider](https://developer.apple.com/documentation/linkpresentation/lpmetadataprovider?language=objc).
+For some cases, if you have the pre-fetched or pre-created `LPLinkMetadata` object, you can use `SDWebImageContextLinkMetadata` context option to associate it, without extra request to the original link URL. But in most cases, you don't need so, just use the `NSURL` point to the rich link, we query the `LPLinkMetadata` with [LPMetadataProvider](https://developer.apple.com/documentation/linkpresentation/lpmetadataprovider?language=objc).
+
+Remember, if you don't want the double cache (`LPLinkMetadata` archive will contains the image data as well, but not simple image URL), do not sync or cache the metadata from callback's `image.sd_extendedObject` to your own storage using `NSCoding` methods. Let the framework do this thing.
 
 + Objective-C
 
 ```objective-c
 // Decoding a metadata from your serialization solution
 LPLinkMetadata *metadata = [NSKeyedUnarchiver unarchiveObjectWithFile:@"/path/to/metadata"];
-// Bind the associated metadata
-NSURL *urlWithMetadata = metadata.originalURL;
-urlWithMetadata.sd_linkMetadata = metadata;
 // Load image without query metadata again
-[imageView sd_setImageWithURL:urlWithMetadata];
-```
-
-```objective-c
-// If URL load success, the completion block's URL also contains the metadata
-LPLinkMetadata *metadata = imageURL.sd_linkMetadata;
-NSLog(@"[title]: %@\n[url]: %@\n[image]: %@", metadata.title, metadata.URL, metadata.imageProvider);
+[imageView sd_setImageWithURL:metadata.originalURL placeholderImage:nil options:0 context:@{SDWebImageContextLinkMetadata : metadata}];
 ```
 
 Note: By default, if the image is cached, we do not send request to query new metadata. If you need to query the metadata as well, consider using SDWebImage's `SDWebImageRefreshCached` option. Or using `SDWebImageFromLoaderOnly` to avoid cache during query.
