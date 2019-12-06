@@ -34,11 +34,11 @@ script:
   - xcodebuild build -workspace Example/SDWebImageLinkPlugin.xcworkspace -scheme SDWebImageLinkPlugin-Example -sdk iphonesimulator -destination 'name=iPhone 11 Pro' | xcpretty -c
 
   - echo Clean DerivedData
+  - rm -rf ~/Library/Developer/Xcode/DerivedData/
   - mkdir DerivedData
-  - rm -rf ~/Library/Developer/Xcode/DerivedData
 
   - echo Run the tests
-  - xcodebuild test -workspace Example/SDWebImageLinkPlugin.xcworkspace -scheme 'SDWebImageLinkPlugin_Tests' -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11 Pro' -configuration Debug | xcpretty -c
+  - xcodebuild clean test -workspace Example/SDWebImageLinkPlugin.xcworkspace -scheme 'SDWebImageLinkPlugin_Tests' -destination 'platform=iOS Simulator,name=iPhone 11 Pro' -configuration Debug -UseModernBuildSystem=NO CODE_SIGNING_ALLOWED=NO | xcpretty -c
   - mv ~/Library/Developer/Xcode/DerivedData/ ./DerivedData/iOS
 
 after_success:

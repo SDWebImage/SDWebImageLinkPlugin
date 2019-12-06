@@ -35,7 +35,7 @@
                             expect(imageView.image).to.equal(image);
                             [expectation fulfill];
                         }];
-    [self waitForExpectationsWithTimeout:kAsyncTestTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kAsyncTestTimeout * 5 handler:nil];
 }
 
 - (void)testLPLinkViewSetImageWithURL {
@@ -59,7 +59,7 @@
                             expect(metadata.title).notTo.beNil();
                             [expectation fulfill];
                         }];
-    [self waitForExpectationsWithTimeout:kAsyncTestTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kAsyncTestTimeout * 5 handler:nil];
 }
 
 @end
