@@ -3,7 +3,6 @@ use_frameworks!
 target 'SDWebImageLinkPlugin_Example' do
   platform :ios, '13.0'
   pod 'SDWebImageLinkPlugin', :path => '../'
-  pod 'SDWebImage', :git => 'https://github.com/dreampiggy/SDWebImage.git', :branch => 'feature_extended_metadata_disk_cache'
 
   target 'SDWebImageLinkPlugin_Tests' do
     inherit! :search_paths
@@ -14,5 +13,4 @@ end
 target 'SDWebImageLinkPlugin_Example macOS' do
   platform :osx, '10.15'
   pod 'SDWebImageLinkPlugin', :path => '../'
-  pod 'SDWebImage', :git => 'https://github.com/dreampiggy/SDWebImage.git', :branch => 'feature_extended_metadata_disk_cache'
 end

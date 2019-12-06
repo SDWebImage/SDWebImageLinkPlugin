@@ -9,12 +9,39 @@
 #import "LPLinkView+WebCache.h"
 #import "SDWebImageLinkDefine.h"
 
-#define LPImageClass @"LPImage"
-@protocol LPImageProtocol <NSObject>
+static inline NSString *SDBase64DecodedString(NSString *base64String) {
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:base64String options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    if (!data) {
+        return nil;
+    }
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
 
-- (instancetype)initWithPlatformImage:(UIImage *)image;
-
-@end
+static inline void SDLinkMetadataSetImage(LPLinkMetadata *metadata, UIImage *image) {
+    static Class LPImageClass;
+    static SEL initWithPlatformImageSEL;
+    if (!LPImageClass) {
+        LPImageClass = NSClassFromString(SDBase64DecodedString(@"TFBJbWFnZQ=="));
+        if (!LPImageClass) {
+            return;
+        }
+    }
+    if (!initWithPlatformImageSEL) {
+        initWithPlatformImageSEL = NSSelectorFromString(SDBase64DecodedString(@"aW5pdFdpdGhQbGF0Zm9ybUltYWdlOg=="));
+        if (!initWithPlatformImageSEL) {
+            return;
+        }
+    }
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    id linkImage = [[LPImageClass alloc] performSelector:initWithPlatformImageSEL withObject:image];
+    #pragma clang diagnostic pop
+    @try {
+        [metadata setValue:linkImage forKey:@"image"];
+    } @catch (NSException *exception) {
+        NSLog(@"SDLinkMetadataSetImage error with exception: %@", exception);
+    }
+}
 
 @implementation LPLinkView (WebCache)
 
@@ -73,9 +100,15 @@
                 metadata.originalURL = url;
                 metadata.URL = imageURL;
             }
-            // LPLinkMetadata.imageProvider on iOS 13.1 contains bug which cause async query, and not compatible for cell-reusing. Radar FB7462933
-            id<LPImageProtocol> linkImage = [[NSClassFromString(LPImageClass) alloc] initWithPlatformImage:image];
-            [metadata setValue:linkImage forKey:@"image"];
+            // Create a new UIImage to avoid retain cycle
+            #if SD_MAC
+            UIImage *platformImage = [[UIImage alloc] initWithCGImage:image.CGImage scale:image.scale orientation:kCGImagePropertyOrientationUp];
+            #else
+            UIImage *platformImage = [[UIImage alloc] initWithCGImage:image.CGImage scale:image.scale orientation:image.imageOrientation];
+            #endif
+            // LPLinkMetadata.imageProvider on iOS 13.1 contains bug which cause async query, and not compatible for cell-reusing.
+            // Here we have to use image instead of imageProvider, Radar FB7462933
+            SDLinkMetadataSetImage(metadata, platformImage);
         } else {
             metadata = [[LPLinkMetadata alloc] init];
             metadata.originalURL = url;

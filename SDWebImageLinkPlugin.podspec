@@ -36,5 +36,5 @@ SDWebImageLinkPlugin is a plugin for SDWebImage framework, which provide the ima
     'DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER' => 'NO'
   }
   
-  s.dependency 'SDWebImage', '~> 5.0'
+  s.dependency 'SDWebImage', '~> 5.4'
 end
