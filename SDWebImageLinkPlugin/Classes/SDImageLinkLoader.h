@@ -6,7 +6,11 @@
 * file that was distributed with this source code.
 */
 
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+#else
 @import SDWebImage;
+#endif
 
 /// A Rich Link loader by using the LinkPresentation framework, load any URL's rich link image, like Website URL, local file URL. See LinkPresentation framework description.
 @interface SDImageLinkLoader : NSObject <SDImageLoader>

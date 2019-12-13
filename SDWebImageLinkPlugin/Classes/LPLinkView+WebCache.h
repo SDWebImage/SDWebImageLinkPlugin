@@ -6,8 +6,12 @@
  * file that was distributed with this source code.
  */
 
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+#else
 @import SDWebImage;
-@import LinkPresentation;
+#endif
+#import <LinkPresentation/LinkPresentation.h>
 
 /**
  * Integrates SDWebImage async downloading and caching of remote images with LPLinkView.

@@ -6,7 +6,11 @@
 * file that was distributed with this source code.
 */
 
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+#else
 @import SDWebImage;
+#endif
 
 /**
  A `LPLinkMetadata` object used to fetch image/icon for website. If you provide this value, we don't use `LPMetadataProvider` to fetch the website's metadata again, directlly use your prefetched metadata instead.
