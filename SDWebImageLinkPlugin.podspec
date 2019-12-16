@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SDWebImageLinkPlugin'
-  s.version          = '0.2.1'
+  s.version          = '0.2.2'
   s.summary          = 'A SDWebImage loader plugin, to support load rich link image with LinkPresentation framework'
 
 # This description is used to generate tags and improve search results.
