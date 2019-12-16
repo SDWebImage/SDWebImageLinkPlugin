@@ -118,7 +118,7 @@
         }
         imageProvider = iconProvider;
     }
-    if (requestData) {
+    if (requestData || ![imageProvider canLoadObjectOfClass:UIImage.class]) {
         // Request the image data and decode
         [self fetchImageDataWithProvider:imageProvider metadata:metadata operation:operation url:url options:options context:context progress:progressBlock completed:completedBlock];
     } else {
