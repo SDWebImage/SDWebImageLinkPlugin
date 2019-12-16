@@ -20,6 +20,12 @@
 
 @implementation ViewController
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [SDImageLoadersManager.sharedManager addLoader:SDImageLinkLoader.sharedLoader];
+    SDWebImageManager.defaultImageLoader = SDImageLoadersManager.sharedManager;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

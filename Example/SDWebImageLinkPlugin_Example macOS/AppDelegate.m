@@ -18,8 +18,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
-    [SDImageLoadersManager.sharedManager addLoader:SDImageLinkLoader.sharedLoader];
-    SDWebImageManager.defaultImageLoader = SDImageLoadersManager.sharedManager;
 }
 
 
