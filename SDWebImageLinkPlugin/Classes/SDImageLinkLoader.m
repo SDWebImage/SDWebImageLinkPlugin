@@ -52,6 +52,7 @@
     if (self) {
         self.timeout = 30;
         self.shouldFetchSubresources = YES;
+        self.shouldfetchVideoResources = YES;
     }
     return self;
 }
@@ -155,7 +156,7 @@
             error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
         } else {
             // The original metadata contains image data and is large, we pick the metadata info only to avoid double cache of image
-            LPLinkMetadata *strippedMetadata = [self.class strippedMetadata:metadata];
+            LPLinkMetadata *strippedMetadata = [self strippedMetadata:metadata];
             // Save the metadata to extended data
             image.sd_extendedObject = strippedMetadata;
         }
@@ -198,7 +199,7 @@
             error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:nil];
         } else {
             // The original metadata contains image data and is large, we pick the metadata info only to avoid double cache of image
-            LPLinkMetadata *strippedMetadata = [self.class strippedMetadata:metadata];
+            LPLinkMetadata *strippedMetadata = [self strippedMetadata:metadata];
             // Save the metadata to extended data
             image.sd_extendedObject = strippedMetadata;
         }
@@ -224,13 +225,15 @@
 }
 
 #pragma mark - Util
-+ (LPLinkMetadata *)strippedMetadata:(LPLinkMetadata *)originalMetadata {
+- (LPLinkMetadata *)strippedMetadata:(LPLinkMetadata *)originalMetadata {
     NSCParameterAssert(originalMetadata);
     LPLinkMetadata *metadata = [LPLinkMetadata new];
     metadata.URL = originalMetadata.URL;
     metadata.originalURL = originalMetadata.originalURL;
     metadata.title = originalMetadata.title;
-    metadata.remoteVideoURL = originalMetadata.remoteVideoURL;
+    if (self.shouldfetchVideoResources) {
+        metadata.remoteVideoURL = originalMetadata.remoteVideoURL;
+    }
     return metadata;
 }
 

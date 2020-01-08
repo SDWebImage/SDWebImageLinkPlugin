@@ -19,9 +19,12 @@
 @property (class, readonly, nonnull) SDImageLinkLoader *sharedLoader;
 
 /// The time interval after which the request automatically fails if it hasn’t already completed. Defaults to 30 seconds.
-@property(nonatomic) NSTimeInterval timeout;
+@property (nonatomic) NSTimeInterval timeout;
 
 /// A Boolean value indicating whether to download subresources specified by the metadata. Defaults to YES.
-@property(nonatomic) BOOL shouldFetchSubresources;
+@property (nonatomic) BOOL shouldFetchSubresources;
+
+/// A Boolean valud indicating whether to fetch any video resource (like `remoteVideoURL` or `videoProvider`). Defaults to YES. Change this to NO if you don't want video resource.
+@property (nonatomic) BOOL shouldfetchVideoResources;
 
 @end
