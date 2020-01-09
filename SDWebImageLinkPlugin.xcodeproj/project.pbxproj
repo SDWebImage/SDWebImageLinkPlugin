@@ -14,8 +14,8 @@
 		3253E0D02387E6B4007ACAD8 /* SDImageLinkLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E0C72387E6B4007ACAD8 /* SDImageLinkLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3253E0D22387E6B4007ACAD8 /* SDWebImageLinkDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E0C92387E6B4007ACAD8 /* SDWebImageLinkDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3253E0D32387E6B4007ACAD8 /* SDWebImageLinkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253E0CA2387E6B4007ACAD8 /* SDWebImageLinkError.m */; };
-		3253E0D62387E8C5007ACAD8 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3253E0D52387E8C5007ACAD8 /* SDWebImage.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		3253E0E72387E900007ACAD8 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3253E0E62387E900007ACAD8 /* SDWebImage.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3253E0D62387E8C5007ACAD8 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3253E0D52387E8C5007ACAD8 /* SDWebImage.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		3253E0E72387E900007ACAD8 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3253E0E62387E900007ACAD8 /* SDWebImage.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		3253E0EC2387E94D007ACAD8 /* SDImageLinkLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E0C72387E6B4007ACAD8 /* SDImageLinkLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3253E0ED2387E94D007ACAD8 /* SDImageLinkLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253E0C22387E6B4007ACAD8 /* SDImageLinkLoader.m */; };
 		3253E0EE2387E94D007ACAD8 /* SDWebImageLinkDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E0C92387E6B4007ACAD8 /* SDWebImageLinkDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,8 +31,8 @@
 		3253E13123882AD5007ACAD8 /* LPLinkView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253E12E23882AD5007ACAD8 /* LPLinkView+WebCache.m */; };
 		3253E13223882AD5007ACAD8 /* LPLinkView+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E12F23882AD5007ACAD8 /* LPLinkView+WebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3253E13323882AD5007ACAD8 /* LPLinkView+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 3253E12F23882AD5007ACAD8 /* LPLinkView+WebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3277599423C7035B0030A40A /* LinkPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277599323C7035B0030A40A /* LinkPresentation.framework */; };
-		3277599523C703630030A40A /* LinkPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277599323C7035B0030A40A /* LinkPresentation.framework */; };
+		3277599423C7035B0030A40A /* LinkPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277599323C7035B0030A40A /* LinkPresentation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3277599523C703630030A40A /* LinkPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277599323C7035B0030A40A /* LinkPresentation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
