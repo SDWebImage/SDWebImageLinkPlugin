@@ -37,4 +37,5 @@ SDWebImageLinkPlugin is a plugin for SDWebImage framework, which provide the ima
   }
   
   s.dependency 'SDWebImage', '~> 5.4'
+  s.weak_frameworks = 'LinkPresentation'
 end
