@@ -16,6 +16,7 @@
 /**
  * Integrates SDWebImage async downloading and caching of remote images with LPLinkView.
  */
+API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0))
 @interface LPLinkView (WebCache)
 
 /**

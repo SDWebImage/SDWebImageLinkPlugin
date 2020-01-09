@@ -13,6 +13,7 @@
 #endif
 
 /// A Rich Link loader by using the LinkPresentation framework, load any URL's rich link image, like Website URL, local file URL. See LinkPresentation framework description.
+API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0))
 @interface SDImageLinkLoader : NSObject <SDImageLoader>
 
 /// Shared loader instance.
