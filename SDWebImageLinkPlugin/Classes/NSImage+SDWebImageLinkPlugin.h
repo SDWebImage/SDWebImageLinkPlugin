@@ -13,7 +13,7 @@
 #endif
 
 #if SD_MAC
-
+API_AVAILABLE(macos(10.15))
 /// Make NSImage supports the `NSItemProviderReading` as well as UIKit's UIImage
 @interface NSImage (SDWebImageLinkPlugin) <NSItemProviderReading, NSItemProviderWriting>
 

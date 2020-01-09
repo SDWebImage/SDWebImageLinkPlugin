@@ -12,9 +12,9 @@
 @import SDWebImage;
 #endif
 
-FOUNDATION_EXPORT NSErrorDomain const SDWebImageLinkErrorDomain;
+FOUNDATION_EXPORT NSErrorDomain const SDWebImageLinkErrorDomain API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0));
 
 typedef NS_ERROR_ENUM(SDWebImageLinkErrorDomain, SDWebImageLinkError) {
     /// Metadata have no any ImageProvider or IconProvider to query
     SDWebImageLinkErrorNoImageProvider = 10000,
-};
+} API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0));
