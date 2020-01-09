@@ -128,6 +128,32 @@ Note: By default, if the image is cached, we do not send request to query new me
 
 Note: By default, we prefer to load the image only, which does not generate the image data. This can increase the loading speed. But however, you can also specify to generate the image data by using `SDWebImageContextLinkRequestImageData` context option.
 
+### Backward Deployment
+
+This framework supports backward deployment on iOS 12-/macOS 10.14- version from v0.3.0. The backward deployment supports Carthage/CocoaPods only (SwiftPM does not support).
+
+For CocoaPods user, you can skip the platform version validation in Podfile with:
+
+```ruby
+platform :ios, '13.0' # This does not effect your App Target's deployment target version, just a hint for CocoaPods
+```
+
+For Carthage user, the built binary framework use weak linking for backward deployment.
+
+Pay attention, you should always use the runtime version check to ensure those symbols are available, you should mark all the classes use public API with `API_AVAILABLE` annotation as well. See below:
+
+```objective-c
+if (@available(iOS 13, *)) {
+    SDImageLinkLoader.sharedLoader.timeout = 60;
+}
+
+API_AVAILABLE(ios(13.0))
+@interface MyLinkManager : NSObject
+@property (nonatomic) LPLinkMetadata *metadata;
+@property (nonatomic) SDImageLinkLoader *loader;
+@end
+```
+
 ## Demo
 
 If you have some issue about usage, SDWebImageLinkPlugin provide a demo for iOS && macOS platform. To run the demo, clone the repo and run the following command.
